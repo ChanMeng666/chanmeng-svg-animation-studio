@@ -17,7 +17,7 @@ does best, and let the layers compose:
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 4 ▸ Subagents (svg-explorer / svg-verifier / ...)     │
 ├─────────────────────────────────────────────────────────────┤
-│  Layer 3 ▸ Skills (/svg-animate, /svg-add-primitive, ...)    │
+│  Layer 3 ▸ Skills (/chanmeng-svg-animate, /chanmeng-svg-add-primitive, ...)    │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 2 ▸ CLAUDE.md ← repo map + lib API index              │
 ├─────────────────────────────────────────────────────────────┤
@@ -103,11 +103,11 @@ upgrade path to a folder-per-preset is straightforward.
 
 ```
 user prompt
-  → CLAUDE.md (always loaded) tells Claude there's a /svg-animate skill
-  → /svg-animate loads its references (animation-principles.md, lib-api.md)
+  → CLAUDE.md (always loaded) tells Claude there's a /chanmeng-svg-animate skill
+  → /chanmeng-svg-animate loads its references (animation-principles.md, lib-api.md)
   → composes from lib/primitives + lib/composer
   → writes output/bouncing-logo.svg
-  → /svg-verify (subagent, isolated context)
+  → /chanmeng-svg-verify (subagent, isolated context)
        → npm run dev, chrome-devtools MCP screenshot loop
        → returns ≤100-word verdict to main thread
   → main thread reports path + summary to user
@@ -118,10 +118,10 @@ user prompt
 ```
 user prompt → /ultracode trigger or explicit "create a workflow"
   → Dynamic Workflows: parse intent → spawn N parallel subagents
-       each running /svg-animate for one asset (logo, loader, success, error)
-       each calling /svg-verify
+       each running /chanmeng-svg-animate for one asset (logo, loader, success, error)
+       each calling /chanmeng-svg-verify
   → workflow waits for all, validates against brand spec
-  → calls /svg-export for each
+  → calls /chanmeng-svg-export for each
   → composes a kit/index.html + README
   → returns to user
 ```
@@ -150,7 +150,7 @@ Three structural decisions taken when making chan-cover-level polish repeatable:
 2. **`palettes.js` and `scene.js` are data/orchestration modules, NOT
    primitives.** They emit no motion/shape/filter element, so they live beside
    `easing.js`/`composer.js` and are edited directly — the gated
-   `/svg-add-primitive` protocol applies only to `lib/primitives/*`. Stated
+   `/chanmeng-svg-add-primitive` protocol applies only to `lib/primitives/*`. Stated
    explicitly so a future session doesn't mis-route a palette through the skill.
 
 3. **The new `decor` primitive category returns `{ defs, body }`** (not a plain

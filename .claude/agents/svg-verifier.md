@@ -2,7 +2,7 @@
 name: svg-verifier
 description: |
   Visually verify a rendered SVG animation in chrome-devtools MCP and return
-  a tight verdict (≤100 words). Specialized for the /svg-verify skill's
+  a tight verdict (≤100 words). Specialized for the /chanmeng-svg-verify skill's
   isolated-context phase. Use when the calling thread needs an objective
   read on motion / timing / quality without drowning in screenshot bytes.
 tools: Read, Bash, mcp__chrome-devtools__new_page, mcp__chrome-devtools__select_page, mcp__chrome-devtools__close_page, mcp__chrome-devtools__navigate_page, mcp__chrome-devtools__take_screenshot, mcp__chrome-devtools__resize_page, mcp__chrome-devtools__evaluate_script, mcp__chrome-devtools__list_pages
@@ -19,7 +19,7 @@ Given a preset slug, render its SVG in chrome-devtools MCP, judge whether
 it looks right against a 5-point rubric, and return a short verdict.
 
 You are NOT here to fix issues. You judge; the parent thread (usually
-`/svg-animate`) decides whether to iterate.
+`/chanmeng-svg-animate`) decides whether to iterate.
 
 ## How you're invoked
 
@@ -50,7 +50,7 @@ Strengths:
 ```
 
 Rationale: a missing browser is an environment limitation, not an animation
-defect, so `fail` would be wrong and would stall the `/svg-animate` loop. The
+defect, so `fail` would be wrong and would stall the `/chanmeng-svg-animate` loop. The
 `Note:` makes explicit that no grading happened — this is an honest "skipped",
 NOT a fabricated pass (Issues / Strengths stay empty).
 

@@ -1,12 +1,12 @@
 ---
-name: svg-export
+name: chanmeng-svg-export
 description: |
   Finalize a rendered SVG for production: run SVGO optimization, add
   accessibility metadata (<title>, <desc>), verify viewBox sanity, and
   copy to a user-specified destination. Use when the user says "ship it",
   "optimize and export", "make it production-ready", "minify this SVG",
   "copy the final SVG to <path>", "export <slug> for the website", or
-  asks for the byte-size after optimization. Always run after /svg-animate
+  asks for the byte-size after optimization. Always run after /chanmeng-svg-animate
   produces a passing verdict and before the SVG is committed or shared.
 allowed-tools: Read, Write, Bash(npx svgo*), Bash(node*), Bash(Copy-Item*), Bash(cp*)
 argument-hint: <preset-slug> [--out=<path>]
@@ -24,10 +24,10 @@ somewhere outside `output/`.
 
 If no slug, return:
 
-> usage: `/svg-export <preset-slug> [--out=<path>]`
+> usage: `/chanmeng-svg-export <preset-slug> [--out=<path>]`
 
 If `output/<slug>.svg` doesn't exist, ask the caller to run
-`/svg-animate` (or `node lib/render-cli.js <slug>`) first.
+`/chanmeng-svg-animate` (or `node lib/render-cli.js <slug>`) first.
 
 ## Step 1 — Verify the source
 
@@ -43,7 +43,7 @@ If structural checks fail, return:
 
 > EXPORT FAILED: <reason>
 > Source: output/<slug>.svg
-> Re-render via `/svg-animate` or `node lib/render-cli.js <slug>`.
+> Re-render via `/chanmeng-svg-animate` or `node lib/render-cli.js <slug>`.
 
 ## Step 2 — Optimize with SVGO
 
@@ -77,7 +77,7 @@ For an animated source, ALSO confirm the motion survived:
 - The `<style>` block and every `@keyframes` still present (grep count matches
   the source). A 0 here means SVGO dropped the animation.
 - If the source has `transform-box`, it's still there.
-- Ideally, render the minified file as an `<img>` (see `svg-verify`'s `<img>`
+- Ideally, render the minified file as an `<img>` (see `chanmeng-svg-verify`'s `<img>`
   step) and confirm it still moves — not just that it parses.
 
 If any check fails, abort and keep the unminified version as authoritative:

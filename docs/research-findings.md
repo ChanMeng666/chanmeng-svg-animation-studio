@@ -160,7 +160,7 @@ Our subagents (Sprint 3):
 - **Animify** (adityakotha03/LogoAnimation) — three-stage pipeline:
   Analysis → Generation → Preview; uses anime.js / Animate.css; React + Next.js
 
-Our `/svg-animate` skill design borrows from all of these, especially Wiggle's
+Our `/chanmeng-svg-animate` skill design borrows from all of these, especially Wiggle's
 preset+references structure.
 
 ## Future work (deferred)

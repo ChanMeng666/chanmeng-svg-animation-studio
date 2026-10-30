@@ -76,7 +76,7 @@ export default function Home() {
           <h1 style={{ margin: '0 0 4px' }}>SVG Animation Studio</h1>
           <p style={{ color: '#666', margin: 0, fontSize: 14 }}>
             {presets.length} presets · grouped by type. Previews render inline (more permissive
-            than GitHub <code>&lt;img&gt;</code> mode — always <code>/svg-verify</code> before shipping).
+            than GitHub <code>&lt;img&gt;</code> mode — always <code>/chanmeng-svg-verify</code> before shipping).
           </p>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>

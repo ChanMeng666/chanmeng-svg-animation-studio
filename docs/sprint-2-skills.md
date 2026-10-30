@@ -10,19 +10,19 @@ composability. Four small skills with sharp `description` fields trigger
 correctly and stay maintainable.
 
 The boundaries are:
-- `/svg-animate` — the **action** ("make me a thing")
-- `/svg-verify` — the **judgment** ("did it come out right")
-- `/svg-add-primitive` — the **extension** ("teach the system a new word")
-- `/svg-export` — the **finalization** ("ship it")
+- `/chanmeng-svg-animate` — the **action** ("make me a thing")
+- `/chanmeng-svg-verify` — the **judgment** ("did it come out right")
+- `/chanmeng-svg-add-primitive` — the **extension** ("teach the system a new word")
+- `/chanmeng-svg-export` — the **finalization** ("ship it")
 
-## 1. `/svg-animate` — main entry
+## 1. `/chanmeng-svg-animate` — main entry
 
-**File**: `.claude/skills/svg-animate/SKILL.md`
+**File**: `.claude/skills/chanmeng-svg-animate/SKILL.md`
 
 **Frontmatter**:
 ```yaml
 ---
-name: svg-animate
+name: chanmeng-svg-animate
 description: |
   Create or edit an animated SVG from a natural-language description. Use
   when the user asks to make/build/create/animate an SVG: mascots, logos,
@@ -57,7 +57,7 @@ You are the entry point for SVG animation requests.
 - Closest existing preset matches user intent → fork it
 - No close match → compose from `lib/primitives/`
 - Missing a primitive you'd need → STOP and instruct user to run
-  `/svg-add-primitive <name>`. Do not add primitives inline.
+  `/chanmeng-svg-add-primitive <name>`. Do not add primitives inline.
 
 ## Step 3 — Write the preset
 - New presets go in `lib/presets/<slug>.js`
@@ -70,7 +70,7 @@ You are the entry point for SVG animation requests.
 - Run `npm run test:snapshot` (will create or update snapshot)
 
 ## Step 5 — Verify
-- Invoke `/svg-verify <slug>` (runs as subagent, will return ≤100-word verdict)
+- Invoke `/chanmeng-svg-verify <slug>` (runs as subagent, will return ≤100-word verdict)
 - If the verdict flags issues, tweak preset params and loop. Maximum 3
   iterations before asking the user.
 
@@ -78,19 +78,19 @@ You are the entry point for SVG animation requests.
 - Return: path to `output/<slug>.svg`, the verdict summary, primitives used.
 
 ## Critical constraints
-- Never edit `lib/primitives/` directly. Use `/svg-add-primitive`.
+- Never edit `lib/primitives/` directly. Use `/chanmeng-svg-add-primitive`.
 - Never delete output without user confirmation.
 - Match the user's character / style cues (pixel art vs gradient vs flat).
 ```
 
-## 2. `/svg-verify <slug>` — visual self-verification
+## 2. `/chanmeng-svg-verify <slug>` — visual self-verification
 
-**File**: `.claude/skills/svg-verify/SKILL.md`
+**File**: `.claude/skills/chanmeng-svg-verify/SKILL.md`
 
 **Frontmatter**:
 ```yaml
 ---
-name: svg-verify
+name: chanmeng-svg-verify
 description: |
   Visually verify a rendered SVG by opening it in a browser, capturing 5
   keyframes, and scoring against the 5-point checklist. Use after generating
@@ -103,11 +103,11 @@ allowed-tools: Bash(npm run dev*), mcp__chrome-devtools__*
 
 > Note (2026-06-03 patch): `disable-model-invocation: true` was originally
 > specified here but removed after field testing. With dmi set, the
-> `/svg-animate` skill's programmatic call into `/svg-verify` was rejected by
+> `/chanmeng-svg-animate` skill's programmatic call into `/chanmeng-svg-verify` was rejected by
 > the Skill tool, forcing Claude to fall back to a manual `Agent` dispatch.
 > The skill's `description` is specific enough ("Visually verify a rendered
 > SVG …") that auto-invocation in inappropriate contexts is unlikely. Keep
-> dmi off so the natural chain `/svg-animate` → `/svg-verify` works without
+> dmi off so the natural chain `/chanmeng-svg-animate` → `/chanmeng-svg-verify` works without
 > friction. The `context: fork` still guarantees the screenshots and console
 > messages stay in an isolated subagent context, which was the real
 > protection we wanted.
@@ -121,17 +121,17 @@ The verifier:
 4. Scores against `docs/animation-principles.md`'s 5-point rubric
 5. Returns ≤100-word verdict
 
-## 3. `/svg-add-primitive <name>` — extend the library
+## 3. `/chanmeng-svg-add-primitive <name>` — extend the library
 
-**File**: `.claude/skills/svg-add-primitive/SKILL.md`
+**File**: `.claude/skills/chanmeng-svg-add-primitive/SKILL.md`
 
 **Frontmatter**:
 ```yaml
 ---
-name: svg-add-primitive
+name: chanmeng-svg-add-primitive
 description: |
   Add a new reusable motion / shape / filter primitive to lib/primitives/.
-  Use only when /svg-animate has flagged a missing capability.
+  Use only when /chanmeng-svg-animate has flagged a missing capability.
 disable-model-invocation: true
 context: fork
 agent: lib-extender
@@ -164,14 +164,14 @@ allowed-tools: Read, Write, Edit, Bash(npm test*)
 - If a snapshot legitimately changes, run `npm run snapshot:update`
 ```
 
-## 4. `/svg-export <slug>` — optimize and ship
+## 4. `/chanmeng-svg-export <slug>` — optimize and ship
 
-**File**: `.claude/skills/svg-export/SKILL.md`
+**File**: `.claude/skills/chanmeng-svg-export/SKILL.md`
 
 **Frontmatter**:
 ```yaml
 ---
-name: svg-export
+name: chanmeng-svg-export
 description: |
   Finalize a rendered SVG: optimize via SVGO, add accessibility metadata,
   verify viewBox, write to the user-specified location.

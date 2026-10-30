@@ -125,14 +125,14 @@ Docs: <updated paths>
 ```
 Main thread
   │
-  ├─ /svg-animate skill loaded
+  ├─ /chanmeng-svg-animate skill loaded
   │   ├─ composes preset
-  │   ├─ calls /svg-verify (skill with context:fork)
+  │   ├─ calls /chanmeng-svg-verify (skill with context:fork)
   │   │   └─ runs `svg-verifier` agent
   │   │       └─ returns ≤100-word verdict to skill
   │   └─ skill returns to user
   │
-  └─ /svg-add-primitive skill (manually invoked)
+  └─ /chanmeng-svg-add-primitive skill (manually invoked)
       └─ runs `lib-extender` agent
           └─ returns one-block report
 ```

@@ -18,7 +18,7 @@ You open this repo in Claude Code and type:
 做一个会跳的紫色机器人      # "Make me a jumping purple robot"
 ```
 
-Claude Code's `/svg-animate` skill auto-triggers, finds the closest existing
+Claude Code's `/chanmeng-svg-animate` skill auto-triggers, finds the closest existing
 preset (`claude-jumping`), forks it with a purple palette, reuses 4 motion
 primitives + 2 shape primitives, writes `output/purple-robot-jumping.svg`,
 dispatches a subagent to visually verify the result against a 5-point
@@ -94,8 +94,8 @@ best at — see [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
 ## Quick start
 
 ```bash
-git clone https://github.com/ChanMeng666/svg-animation-studio.git
-cd svg-animation-studio
+git clone https://github.com/ChanMeng666/chanmeng-svg-animation-studio.git
+cd chanmeng-svg-animation-studio
 npm install
 
 # Render the live preview grid at http://localhost:3030
@@ -115,7 +115,7 @@ Requirements: Node ≥ 18, npm. Tested on Windows 11 + macOS.
 ## Repository tour
 
 ```
-svg-animation-studio/
+chanmeng-svg-animation-studio/
 ├─ CLAUDE.md                Always-loaded context for Claude Code sessions
 ├─ CHANGELOG.md             Version history (Keep a Changelog format)
 ├─ lib/                     Deterministic code — the single source of truth
@@ -141,10 +141,10 @@ svg-animation-studio/
 │  └─ sprint-2/3/4-*.md        Layer designs (skills / subagents / workflows)
 ├─ .claude/
 │  ├─ skills/                  4 project-level Claude Code skills
-│  │  ├─ svg-animate/          /svg-animate — main entry point
-│  │  ├─ svg-verify/           /svg-verify — chrome-devtools visual grader
-│  │  ├─ svg-add-primitive/    /svg-add-primitive — safe lib extension
-│  │  └─ svg-export/           /svg-export — SVGO + accessibility + ship
+│  │  ├─ chanmeng-svg-animate/          /chanmeng-svg-animate — main entry point
+│  │  ├─ chanmeng-svg-verify/           /chanmeng-svg-verify — chrome-devtools visual grader
+│  │  ├─ chanmeng-svg-add-primitive/    /chanmeng-svg-add-primitive — safe lib extension
+│  │  └─ chanmeng-svg-export/           /chanmeng-svg-export — SVGO + accessibility + ship
 │  └─ agents/                  3 specialized subagents
 │     ├─ svg-verifier.md       Dirty-context visual grading
 │     ├─ lib-extender.md       Restricted-tool primitive addition
@@ -161,12 +161,12 @@ four skills auto-load. Then just describe what you want:
 
 | You say | What happens |
 |---|---|
-| "make me a bouncing orange mascot" | `/svg-animate` picks `claude-jumping`, forks with new palette |
+| "make me a bouncing orange mascot" | `/chanmeng-svg-animate` picks `claude-jumping`, forks with new palette |
 | "give me 3 variants of a loader" | `svg-explorer` subagent generates 3 variants in parallel |
-| "is this animation any good?" | `/svg-verify <slug>` returns a ≤100-word verdict |
-| "I need a wobble effect that doesn't exist" | `/svg-animate` flags the gap; you run `/svg-add-primitive motion.createWobble` |
-| "ship this for production" | `/svg-export <slug>` runs SVGO + accessibility, writes to `--out=` |
-| "build me a brand animation kit" | `/ultracode` invokes Dynamic Workflows; orchestrates parallel `/svg-animate` calls |
+| "is this animation any good?" | `/chanmeng-svg-verify <slug>` returns a ≤100-word verdict |
+| "I need a wobble effect that doesn't exist" | `/chanmeng-svg-animate` flags the gap; you run `/chanmeng-svg-add-primitive motion.createWobble` |
+| "ship this for production" | `/chanmeng-svg-export <slug>` runs SVGO + accessibility, writes to `--out=` |
+| "build me a brand animation kit" | `/ultracode` invokes Dynamic Workflows; orchestrates parallel `/chanmeng-svg-animate` calls |
 
 See [`docs/sprint-2-skills.md`](./docs/sprint-2-skills.md) for the full
 skill contracts, [`docs/sprint-3-subagents.md`](./docs/sprint-3-subagents.md)
@@ -181,18 +181,18 @@ for the workflow trigger phrase cheat sheet.
 
 | Slash command | Purpose | Invocation |
 |---|---|---|
-| `/svg-animate <description>` | Natural language → SVG file | Auto-triggers on any "make / build / animate" request |
-| `/svg-verify <slug>` | Visual verification, ≤100-word verdict | Auto-invoked by `/svg-animate`; can be called directly |
-| `/svg-add-primitive <category>.<name>` | Safe library extension | User-only (`disable-model-invocation: true`) |
-| `/svg-export <slug> [--out=path]` | SVGO + accessibility + ship | Auto-suggested after a passing verdict |
+| `/chanmeng-svg-animate <description>` | Natural language → SVG file | Auto-triggers on any "make / build / animate" request |
+| `/chanmeng-svg-verify <slug>` | Visual verification, ≤100-word verdict | Auto-invoked by `/chanmeng-svg-animate`; can be called directly |
+| `/chanmeng-svg-add-primitive <category>.<name>` | Safe library extension | User-only (`disable-model-invocation: true`) |
+| `/chanmeng-svg-export <slug> [--out=path]` | SVGO + accessibility + ship | Auto-suggested after a passing verdict |
 
 ### Specialized subagents (`.claude/agents/`)
 
 | Agent | Trigger condition | Used by |
 |---|---|---|
-| `svg-verifier` | Dirty context (screenshots, console logs) | `/svg-verify` |
-| `lib-extender` | Restricted tools (only `lib/` + tests) | `/svg-add-primitive` |
-| `svg-explorer` | Long-running (N parallel variant outputs) | `/svg-animate` when user wants variants |
+| `svg-verifier` | Dirty context (screenshots, console logs) | `/chanmeng-svg-verify` |
+| `lib-extender` | Restricted tools (only `lib/` + tests) | `/chanmeng-svg-add-primitive` |
+| `svg-explorer` | Long-running (N parallel variant outputs) | `/chanmeng-svg-animate` when user wants variants |
 
 ---
 
@@ -226,7 +226,7 @@ const svg = composeSVG({
 Six engineering disciplines, enforced by skill design and documented in
 [`docs/extension-protocol.md`](./docs/extension-protocol.md):
 
-1. **New primitives go through `/svg-add-primitive`** — never hand-edit `lib/primitives/`
+1. **New primitives go through `/chanmeng-svg-add-primitive`** — never hand-edit `lib/primitives/`
 2. **New presets must reuse ≥ 1 existing primitive** — this is what makes the system compound
 3. **Changing a primitive signature requires snapshot resync** — `npm test` is non-negotiable
 4. **Deleting a primitive requires zero callers** — grep first, delete second

@@ -1,9 +1,9 @@
 ---
-name: svg-verify
+name: chanmeng-svg-verify
 description: |
   Visually verify a rendered SVG animation by opening it in chrome-devtools
   MCP, capturing keyframes, and scoring against the 5-point quality rubric.
-  Invoke this immediately after `/svg-animate` writes an output, or whenever
+  Invoke this immediately after `/chanmeng-svg-animate` writes an output, or whenever
   the user asks "is this animation good?", "how does it look?", "verify the
   motion", or "check the SVG visually". Always run before declaring an
   animation complete. Returns a ≤100-word verdict and never leaks screenshots
@@ -24,7 +24,7 @@ verdict. Keep that verdict ≤ 100 words. Brevity is the contract.
 If it's empty, return:
 
 > VERDICT: fail
-> No slug provided. Usage: `/svg-verify <preset-slug>`.
+> No slug provided. Usage: `/chanmeng-svg-verify <preset-slug>`.
 
 ## Workflow
 

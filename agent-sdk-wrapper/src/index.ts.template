@@ -11,7 +11,7 @@ export interface AnimateOptions {
   outputDir?: string;
   /** When > 1, delegates to the svg-explorer subagent. Default 1. */
   variants?: number;
-  /** Path to a local clone of svg-animation-studio. Defaults to bundled. */
+  /** Path to a local clone of chanmeng-svg-animation-studio. Defaults to bundled. */
   studioPath?: string;
   /** Stream progress events as they arrive. */
   onProgress?: (event: ProgressEvent) => void;

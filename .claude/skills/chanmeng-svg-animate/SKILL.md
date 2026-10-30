@@ -1,5 +1,5 @@
 ---
-name: svg-animate
+name: chanmeng-svg-animate
 description: |
   Create, edit, or remix an animated SVG file from a natural-language description.
   Use this whenever the user asks you to make, build, design, generate, animate,
@@ -22,9 +22,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash(node lib/*), Bash(npm test*),
 
 You are the entry point for SVG animation requests in this repository.
 
-The repository (`svg-animation-studio`) is a compounding system: every animation
+The repository (`chanmeng-svg-animation-studio`) is a compounding system: every animation
 reuses primitives from `lib/primitives/`, every new primitive earns the right
-to be added through `/svg-add-primitive`. Your job is to translate one
+to be added through `/chanmeng-svg-add-primitive`. Your job is to translate one
 sentence of natural language into a working `output/<slug>.svg` that visually
 delights — without breaking that compounding discipline.
 
@@ -68,7 +68,7 @@ candidate's `compose()` (~30 lines each) to learn the patterns. Decide one of:
 - **Stop and request a primitive** — a needed motion / shape / filter doesn't
   exist. Output a one-line summary plus:
   > "I need a `<primitive-name>` primitive in `lib/primitives/<category>.js`.
-  > Please run `/svg-add-primitive <name>`."
+  > Please run `/chanmeng-svg-add-primitive <name>`."
   Do NOT add primitives inline. See `docs/extension-protocol.md` rule 1.
 
 For inspiration mapping ("user wants X → reach for Y"), open
@@ -91,7 +91,7 @@ modern composition path** (it's how the quality bar is reproduced):
 
 For why timing / squash / staggering matter, open
 `references/animation-principles.md`. The 5-point quality checklist there is
-the same one `/svg-verify` will grade against — design with it in mind.
+the same one `/chanmeng-svg-verify` will grade against — design with it in mind.
 
 ## Step 3 — Write the preset
 
@@ -159,7 +159,7 @@ Always re-verify visually after a snapshot update.
 
 ## Step 6 — Visually verify
 
-Invoke `/svg-verify <slug>` — it runs in an isolated subagent context, opens
+Invoke `/chanmeng-svg-verify <slug>` — it runs in an isolated subagent context, opens
 the SVG in chrome-devtools MCP, scores against the 5-point rubric, and
 returns ≤ 100 words. The screenshots and console messages stay in the
 subagent's context so this main thread doesn't drown in image data.
@@ -176,14 +176,14 @@ If `pass`: report to the user with:
 - Path: `output/<slug>.svg`
 - Primitives used: `motion.foo`, `shapes.bar`, ...
 - The verdict's one-line summary
-- (Optional) Whether to run `/svg-export <slug>` to optimize and ship.
+- (Optional) Whether to run `/chanmeng-svg-export <slug>` to optimize and ship.
 
 ## Anti-patterns
 
 - ❌ Writing `<svg ...>` markup directly in a skill or preset. Always go
   through `composer.composeSVG`.
 - ❌ Adding a function to `lib/primitives/*.js` without going through
-  `/svg-add-primitive`. The protocol exists to keep JSDoc, snapshot coverage,
+  `/chanmeng-svg-add-primitive`. The protocol exists to keep JSDoc, snapshot coverage,
   and lib-api.md in sync.
 - ❌ Calling `npm run snapshot:update` without a visual recheck. Snapshots
   are the only thing protecting you from silent regressions.
@@ -205,7 +205,7 @@ Use the svg-explorer agent to produce <N> variants of
 ```
 
 It returns a comparison block with file paths + a recommendation. Then run
-`/svg-verify <recommended-slug>` on the chosen winner, and `/svg-export` if
+`/chanmeng-svg-verify <recommended-slug>` on the chosen winner, and `/chanmeng-svg-export` if
 the user accepts.
 
 Why delegate? Generating N presets in parallel + rendering N SVGs + reading

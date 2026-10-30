@@ -138,10 +138,10 @@
         <code>.svg</code> file.
       </p>
       <div class="links">
-        <a href="https://github.com/ChanMeng666/svg-animation-studio" class="primary">GitHub →</a>
-        <a href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/README.md">README</a>
-        <a href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/docs/ARCHITECTURE.md">Architecture</a>
-        <a href="https://github.com/ChanMeng666/svg-animation-studio/releases/tag/v0.1.0">v0.1.0 Release</a>
+        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio" class="primary">GitHub →</a>
+        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/README.md">README</a>
+        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/docs/ARCHITECTURE.md">Architecture</a>
+        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/releases/tag/v0.1.0">v0.1.0 Release</a>
       </div>
     </header>
 
@@ -149,13 +149,13 @@
       <h2>The 30-second demo</h2>
       <p>Open the repo in Claude Code. Type a sentence. Watch it animate.</p>
       <div class="quote">"做一个会跳的紫色机器人"  (make me a jumping purple robot)</div>
-      <pre>/svg-animate auto-triggers
+      <pre>/chanmeng-svg-animate auto-triggers
   → forks the closest existing preset (claude-jumping)
   → reuses 4 motion primitives + 2 shape primitives
   → writes output/purple-robot-jumping.svg
-  → /svg-verify dispatches a subagent, returns ≤100-word verdict
+  → /chanmeng-svg-verify dispatches a subagent, returns ≤100-word verdict
   → iterates once on the feedback
-  → offers /svg-export to ship</pre>
+  → offers /chanmeng-svg-export to ship</pre>
       <p style="margin-top: 16px; color: var(--muted); font-size: 0.9rem;">
         No SVG hand-written. No keyframe manually computed. The 5th preset
         below (<code>purple-robot-jumping</code>) was generated entirely from
@@ -170,27 +170,27 @@
     </p>
 
     <div class="grid">
-      <a class="card" href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/lib/presets/claudeJumping.js" style="text-decoration: none; color: inherit;">
+      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/claudeJumping.js" style="text-decoration: none; color: inherit;">
         <div class="card-svg"><img src="preview/claude-jumping.svg" alt="claude-jumping" /></div>
         <div class="card-name">claude-jumping</div>
         <div class="card-desc">Squash-stretch jump + ear bounce stagger + synced shadow</div>
       </a>
-      <a class="card" href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/lib/presets/claudeSpeaking.js" style="text-decoration: none; color: inherit;">
+      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/claudeSpeaking.js" style="text-decoration: none; color: inherit;">
         <div class="card-svg"><img src="preview/claude-speaking.svg" alt="claude-speaking" /></div>
         <div class="card-name">claude-speaking</div>
         <div class="card-desc">Idle bob + mouth talk + sound waves + floating music notes</div>
       </a>
-      <a class="card" href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/lib/presets/codexJumping.js" style="text-decoration: none; color: inherit;">
+      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/codexJumping.js" style="text-decoration: none; color: inherit;">
         <div class="card-svg"><img src="preview/codex-jumping.svg" alt="codex-jumping" /></div>
         <div class="card-name">codex-jumping</div>
         <div class="card-desc">Gradient cloud body + filter depth + same kinematics</div>
       </a>
-      <a class="card" href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/lib/presets/codexSpeaking.js" style="text-decoration: none; color: inherit;">
+      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/codexSpeaking.js" style="text-decoration: none; color: inherit;">
         <div class="card-svg"><img src="preview/codex-speaking.svg" alt="codex-speaking" /></div>
         <div class="card-name">codex-speaking</div>
         <div class="card-desc">Voice rings + glow filters + ellipse mouth</div>
       </a>
-      <a class="card" href="https://github.com/ChanMeng666/svg-animation-studio/blob/main/lib/presets/purpleRobotJumping.js" style="text-decoration: none; color: inherit;">
+      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/purpleRobotJumping.js" style="text-decoration: none; color: inherit;">
         <div class="card-svg"><img src="preview/purple-robot-jumping.svg" alt="purple-robot-jumping" /></div>
         <div class="card-name">purple-robot-jumping</div>
         <div class="card-desc">Grown entirely from one natural-language sentence</div>
@@ -199,8 +199,8 @@
 
     <section class="demo">
       <h2>Quick start</h2>
-      <pre>git clone https://github.com/ChanMeng666/svg-animation-studio.git
-cd svg-animation-studio
+      <pre>git clone https://github.com/ChanMeng666/chanmeng-svg-animation-studio.git
+cd chanmeng-svg-animation-studio
 npm install
 
 npm run dev                              # preview grid at localhost:3030

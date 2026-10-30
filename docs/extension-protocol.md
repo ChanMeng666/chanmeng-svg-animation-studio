@@ -3,7 +3,7 @@
 > These six rules are non-negotiable. They are what turn this repo from a
 > pile of one-off animations into a compounding system.
 
-## Rule 1 — New primitives go through `/svg-add-primitive`
+## Rule 1 — New primitives go through `/chanmeng-svg-add-primitive`
 
 **Why**: Hand-edits to `lib/primitives/*.js` skip the safety net (no JSDoc
 check, no caller verification, no doc update, no test run). Over time these
@@ -12,7 +12,7 @@ accumulate as inconsistent APIs that nobody can compose.
 **How to apply**: If you're an LLM in this repo and you find yourself wanting
 to add a function to `lib/primitives/`, **stop** and emit:
 
-> "I need a new primitive. Please run `/svg-add-primitive <name>` to add it
+> "I need a new primitive. Please run `/chanmeng-svg-add-primitive <name>` to add it
 > with the safety checks."
 
 ## Rule 2 — New presets must reuse ≥ 1 existing primitive

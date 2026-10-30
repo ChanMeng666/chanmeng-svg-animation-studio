@@ -1,10 +1,10 @@
 ---
-name: svg-add-primitive
+name: chanmeng-svg-add-primitive
 description: |
   Add a new reusable motion / shape / filter primitive to lib/primitives/
   with safety: JSDoc + sensible defaults + at least one consuming preset +
   passing snapshot tests + updated docs/lib-api.md + CLAUDE.md index.
-  Use this only when /svg-animate has flagged a missing capability or when
+  Use this only when /chanmeng-svg-animate has flagged a missing capability or when
   the user explicitly asks to "add a primitive", "extend the lib", "teach
   the system to <verb>", or "I need a new <motion / filter / shape> for ...".
   This is the only sanctioned path for growing lib/primitives/; do not edit
@@ -32,7 +32,7 @@ to clarify with format `<category>.<name>`.
 Without a gatekept extension path, `lib/primitives/` quickly accumulates
 inconsistent signatures, undocumented functions, and primitives used by no
 one. The discipline below is what makes the library compound rather than
-sprawl. See `D:\github_repository\svg-animation-studio\docs\extension-protocol.md`
+sprawl. See `D:\github_repository\chanmeng-svg-animation-studio\docs\extension-protocol.md`
 for the rationale.
 
 ## Step 1 — Read the existing category

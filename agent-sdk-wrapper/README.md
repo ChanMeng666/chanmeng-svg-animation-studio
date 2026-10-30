@@ -1,7 +1,7 @@
 # agent-sdk-wrapper
 
 > **Status**: scaffolding only. Sprint 4 placeholder. **Activate this package
-> only when you need to expose svg-animation-studio as a programmatic API
+> only when you need to expose chanmeng-svg-animation-studio as a programmatic API
 > to callers outside Claude Code itself** (Web UI, Figma plugin, VS Code
 > extension, CI step, etc.). For everyday use inside Claude Code, the four
 > skills + three subagents are enough.
@@ -10,7 +10,7 @@
 
 `@anthropic-ai/claude-agent-sdk` lets you run Claude Code-style agent loops
 inside your own Node process. This package's job: expose a single typed
-function `animateSVG(opts)` that runs the `/svg-animate` skill in this
+function `animateSVG(opts)` that runs the `/chanmeng-svg-animate` skill in this
 repository's context, streaming progress events back to the caller.
 
 ## Public API (planned)
@@ -51,7 +51,7 @@ Managed Agents).
 2. Fill in `src/index.ts` per the sketch in `docs/sprint-4-workflows.md`
 3. Wire the `PostToolUse(Write)` hook to emit `outputWritten` events
 4. Add a thin `mcpServers` config so the chrome-devtools MCP is available
-   for `/svg-verify`
+   for `/chanmeng-svg-verify`
 5. Add a `package.json` here, pin types, and decide on the public name
 
 ## Currently in this directory

@@ -380,7 +380,7 @@ picture is still moving.
    static instances, its palette with the product's tokens, its copy and its stage.
    Keep `motion.resetIdCounter()` as the first line of `compose()`.
 7. `npm run render <slug>`, then `node scripts/capture-frames.mjs output/<slug>.svg`.
-8. `npm test`, then `/svg-export <slug>`.
+8. `npm test`, then `/chanmeng-svg-export <slug>`.
 
 A card that needs a private checkout, a film master or a system font should read it
 at render time and skip gracefully when it is absent, so the committed output still

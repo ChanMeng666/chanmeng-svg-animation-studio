@@ -4,7 +4,7 @@ description: |
   Add a new primitive to lib/primitives/ with safety: JSDoc + sensible
   defaults + at least one consuming preset + passing snapshot tests +
   updated docs/lib-api.md + CLAUDE.md index. Specialized for the
-  /svg-add-primitive skill's isolated-context phase. Has tightly restricted
+  /chanmeng-svg-add-primitive skill's isolated-context phase. Has tightly restricted
   tools (no chrome MCP, no random Bash) to keep scope honest.
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---

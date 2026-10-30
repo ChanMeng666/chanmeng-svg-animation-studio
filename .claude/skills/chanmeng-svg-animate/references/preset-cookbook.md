@@ -129,7 +129,7 @@ return composeSVG({ viewBox, width, height, style: scene.style, defs: scene.defs
 
 ## When no recipe fits
 
-Three signs you need to stop and request a primitive (`/svg-add-primitive`):
+Three signs you need to stop and request a primitive (`/chanmeng-svg-add-primitive`):
 
 1. The motion has a verb not in the (now much larger) table above — e.g.,
    "flicker", "morph", "type out", "follow a path", "wobble jelly".

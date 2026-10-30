@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This guide explains how to get invo
 
 ### Reporting Bugs
 
-If you find a bug, please [open an issue](https://github.com/ChanMeng666/svg-animation-studio/issues/new) with:
+If you find a bug, please [open an issue](https://github.com/ChanMeng666/chanmeng-svg-animation-studio/issues/new) with:
 
 - Steps to reproduce the problem
 - Expected vs. actual behavior (screenshots or logs help)
@@ -14,14 +14,14 @@ If you find a bug, please [open an issue](https://github.com/ChanMeng666/svg-ani
 
 ### Suggesting Features
 
-Have an idea? [Open a feature request](https://github.com/ChanMeng666/svg-animation-studio/issues/new) describing the problem you want to solve and your proposed solution.
+Have an idea? [Open a feature request](https://github.com/ChanMeng666/chanmeng-svg-animation-studio/issues/new) describing the problem you want to solve and your proposed solution.
 
 ### Submitting Changes
 
 1. **Fork** the repository and **clone** your fork:
    ```bash
-   git clone https://github.com/<your-username>/svg-animation-studio.git
-   cd svg-animation-studio
+   git clone https://github.com/<your-username>/chanmeng-svg-animation-studio.git
+   cd chanmeng-svg-animation-studio
    ```
 2. **Create a branch** for your changes:
    ```bash

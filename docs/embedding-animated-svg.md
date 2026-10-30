@@ -98,7 +98,7 @@ the right font and run anything. Verify the real target by opening a `file://`
 HTML page that embeds the SVG as `<img src="<slug>.svg">` (relative path,
 same-origin — `setContent` with a `file://` src is blocked and shows a false
 broken-image). Check `img.naturalWidth > 0`, then screenshot. See the `<img>`-mode
-step in `svg-verify`.
+step in `chanmeng-svg-verify`.
 
 **Reduced motion needs its own route.** Browser emulation of
 `prefers-reduced-motion` did not reach an SVG loaded through `<img>` in our harness:

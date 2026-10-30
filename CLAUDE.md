@@ -5,17 +5,17 @@
 
 ## 1. What this repo is
 
-`svg-animation-studio` is a composable SVG animation system. A natural-language
+`chanmeng-svg-animation-studio` is a composable SVG animation system. A natural-language
 request from the user becomes a call into `lib/`, which produces a `.svg` file
 that is verified visually via the chrome-devtools MCP, then dropped into
 `output/`. The system grows over time: every new preset can reuse all
 primitives that came before.
 
 **Entry points** for users:
-- `/svg-animate "..."` — main skill: natural language → SVG file
-- `/svg-verify <slug>` — visual verification (chrome-devtools MCP, subagent)
-- `/svg-add-primitive <category>.<name>` — extend lib safely
-- `/svg-export <slug> [--out=path]` — SVGO + accessibility + ship
+- `/chanmeng-svg-animate "..."` — main skill: natural language → SVG file
+- `/chanmeng-svg-verify <slug>` — visual verification (chrome-devtools MCP, subagent)
+- `/chanmeng-svg-add-primitive <category>.<name>` — extend lib safely
+- `/chanmeng-svg-export <slug> [--out=path]` — SVGO + accessibility + ship
 - `npm run render <preset>` — render an existing preset to `output/`
 - `npm run dev` — preview grid at http://localhost:3030
 
@@ -24,7 +24,7 @@ primitives that came before.
 | Path | Purpose |
 |---|---|
 | `lib/` | Deterministic code. Single source of truth. Skills call this; never duplicate. |
-| `lib/primitives/{shapes,motion,filters,decor}.js` | Reusable building blocks. Add via `/svg-add-primitive`, never by hand. |
+| `lib/primitives/{shapes,motion,filters,decor}.js` | Reusable building blocks. Add via `/chanmeng-svg-add-primitive`, never by hand. |
 | `lib/presets/*.js` | Named animation templates (e.g. `claude-jumping`). Each composes primitives. |
 | `lib/composer.js` | The only allowed way to assemble a final `<svg>` string. |
 | `lib/scene.js` | Layer/scene composer (sits BELOW composeSVG). Handles the static-vs-animated transform nesting. NOT a primitive — edit directly. |
@@ -37,7 +37,7 @@ primitives that came before.
 | `ref/` | User-provided reference material (sketches, videos, sample SVGs). |
 | `tests/snapshot/` | Vitest snapshots of every preset's output. Guards against regressions. |
 | `tests/visual/` | (optional) Playwright pixel diffs. |
-| `.claude/skills/` | Project-level skills: `svg-animate`, `svg-verify`, `svg-add-primitive`, `svg-export`. |
+| `.claude/skills/` | Project-level skills: `chanmeng-svg-animate`, `chanmeng-svg-verify`, `chanmeng-svg-add-primitive`, `chanmeng-svg-export`. |
 | `.claude/agents/` | Project-level subagents: `svg-verifier`, `lib-extender`, `svg-explorer`. |
 | `agent-sdk-wrapper/` | Sprint 4 scaffolding for productizing as an Agent SDK package. Inactive by default; see its README. |
 
@@ -133,11 +133,11 @@ primitives that came before.
 ```
 User: "做一个会跳的橙色机器人"
   │
-  ├─► /svg-animate skill loads
+  ├─► /chanmeng-svg-animate skill loads
   ├─► reads ref/ for any user-provided reference
   ├─► picks the closest existing preset OR composes from primitives
   ├─► writes output/<slug>.svg via lib/composer.js
-  ├─► /svg-verify (fork subagent) opens the SVG in chrome-devtools MCP,
+  ├─► /chanmeng-svg-verify (fork subagent) opens the SVG in chrome-devtools MCP,
   │    captures 5 keyframes, scores against the 5-point checklist
   ├─► if not OK: tweaks params, re-renders (up to 3 iterations)
   └─► returns final path + a 1-line summary
@@ -146,8 +146,8 @@ User: "做一个会跳的橙色机器人"
 For multi-asset jobs ("a full brand animation kit"), the user runs
 `/ultracode` to invoke Dynamic Workflows (see `docs/sprint-4-workflows.md`).
 
-Skills and subagents: `/svg-animate` renders; `/svg-verify` (svg-verifier) scores it;
-`/svg-add-primitive` (lib-extender) grows `lib/primitives/`; `/svg-export` ships.
+Skills and subagents: `/chanmeng-svg-animate` renders; `/chanmeng-svg-verify` (svg-verifier) scores it;
+`/chanmeng-svg-add-primitive` (lib-extender) grows `lib/primitives/`; `/chanmeng-svg-export` ships.
 Multi-asset jobs: `docs/sprint-4-workflows.md`.
 
 ## 5. Critical rules
@@ -156,7 +156,7 @@ Multi-asset jobs: `docs/sprint-4-workflows.md`.
    `<svg>` string in a skill or subagent — duplication erodes the snapshot
    guarantee.
 
-2. **New primitives go through `/svg-add-primitive`.** Never hand-edit
+2. **New primitives go through `/chanmeng-svg-add-primitive`.** Never hand-edit
    `lib/primitives/*.js` (motion/shapes/filters/decor) directly. The skill
    enforces JSDoc + a consuming preset + snapshot pass. `lib/palettes.js`,
    `lib/scene.js`, `lib/easing.js`, `lib/text.js`, `lib/timeline.js`, `lib/media.js`
@@ -182,7 +182,7 @@ Multi-asset jobs: `docs/sprint-4-workflows.md`.
 - Architecture / design question → `docs/ARCHITECTURE.md`
 - Why a design choice was made → `docs/research-findings.md`
 - How to use a specific primitive → `docs/lib-api.md`
-- How to compose a cover / banner / logo / loader at quality → `.claude/skills/svg-animate/references/preset-cookbook.md` (palettes + `composeScene` + which preset to fork)
+- How to compose a cover / banner / logo / loader at quality → `.claude/skills/chanmeng-svg-animate/references/preset-cookbook.md` (palettes + `composeScene` + which preset to fork)
 - What an existing preset does → read its `lib/presets/*.js` (~30 lines each)
 - How to design a new skill → `docs/sprint-2-skills.md`
 - How to design a new subagent → `docs/sprint-3-subagents.md`

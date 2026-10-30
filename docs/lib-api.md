@@ -1,7 +1,7 @@
 # lib API Reference
 
 > Every public function in `lib/`. CLAUDE.md indexes names; this file is the
-> contract. Primitives are added via `/svg-add-primitive`; the data/orchestration
+> contract. Primitives are added via `/chanmeng-svg-add-primitive`; the data/orchestration
 > modules (`palettes`, `scene`, `easing`, `composer`) are edited directly.
 >
 > 39 primitives (16 motion / 16 shapes / 4 filters / 3 decor), plus the

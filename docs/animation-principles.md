@@ -2,7 +2,7 @@
 
 > The 7 of Disney's 12 principles that translate directly to SVG. Each maps to
 > a primitive or compositional habit in this repo. Loaded on demand by the
-> `/svg-animate` skill.
+> `/chanmeng-svg-animate` skill.
 
 ## 1. Squash & stretch
 
@@ -87,7 +87,7 @@ Read at a glance. Silhouette matters. Generous size of expressive features
 
 ## Checklist when verifying a generated SVG
 
-Used by the `/svg-verify` skill's scoring rubric:
+Used by the `/chanmeng-svg-verify` skill's scoring rubric:
 
 1. **Motion feels connected**: does primary + secondary actions tell one
    story?
