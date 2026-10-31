@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "chanmeng-svg-animation-studio",
-      "source": "./",
+      "source": "./skills",
       "description": "Make animated SVG product cards that play inside a GitHub README: the product's real interface redrawn in vectors and running, checked against the <img> sandbox.",
       "category": "design",
       "tags": ["svg", "animation", "readme", "github", "product-card"]

@@ -16,7 +16,7 @@ primitives that came before.
 - `/chanmeng-svg-verify <slug>` — visual verification (chrome-devtools MCP, subagent)
 - `/chanmeng-svg-add-primitive <category>.<name>` — extend lib safely
 - `/chanmeng-svg-export <slug> [--out=path]` — SVGO + accessibility + ship
-- `chanmeng-svg-product-card` — a README card showing a product at work. The one skill that installs on its own: `skills/`, published through `.claude-plugin/`
+- `chanmeng-svg-product-card` — a README card showing a product at work. The one skill that installs on its own: `skills/`, published through `.claude-plugin/marketplace.json` and `skills/.claude-plugin/plugin.json`
 - `npm run render <preset>` — render an existing preset to `output/`
 - `npm run dev` — preview grid at http://localhost:3030
 
@@ -32,7 +32,7 @@ primitives that came before.
 | `lib/palettes.js` | Curated named palettes (theme system). NOT a primitive — edit directly. |
 | `lib/text.js` · `lib/timeline.js` · `lib/media.js` | Shims for the product-card toolkit, which lives in `skills/chanmeng-svg-product-card/kit/`. Edit it there. |
 | `skills/chanmeng-svg-product-card/` | The installable skill: `SKILL.md`, `references/`, `kit/` (the toolkit, copied into a project by `scripts/init-kit.mjs`). |
-| `.claude-plugin/` | The plugin and marketplace manifests. Keep `version` equal to `package.json`. |
+| `.claude-plugin/marketplace.json` · `skills/.claude-plugin/plugin.json` | The marketplace and the plugin. The plugin root is `skills/`, so the studio's own `package.json` is not treated as plugin dependencies. Keep `version` equal to `package.json`. |
 | `lib/easing.js` | Named easing curves for both CSS and SMIL. |
 | `docs/` | Permanent design memory. Open on demand. |
 | `playground/` | Next.js preview server. `/api/svg?preset=NAME` returns SVG. |

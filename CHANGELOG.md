@@ -17,7 +17,8 @@ as one self-contained skill through a plugin marketplace.
 - `skills/chanmeng-svg-product-card/`: the workflow, the current field guide, a kit
   API reference, a starter card, and `init-kit.mjs`, which copies the kit into a
   project so its cards rebuild without the skill.
-- `.claude-plugin/`: plugin and marketplace manifests.
+- `.claude-plugin/marketplace.json` and `skills/.claude-plugin/plugin.json`. The plugin root is
+  `skills/`, so the studio's Next.js dependencies do not count as the plugin's.
 - `kit/check-card.mjs`: a static gate for the `<img>` sandbox, calibrated on thirteen
   real cards.
 - `kit/shell.cjs`: the 1300 × 360 frame and an identity panel that refuses a fifth

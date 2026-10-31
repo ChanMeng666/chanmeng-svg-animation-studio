@@ -23,11 +23,12 @@ const copy = { theme, eyebrow: 'ONE TWO', name: 'Name', headline: 'A short headl
 
 describe('packaging', () => {
   it('declares a plugin and a marketplace that point at the skills folder', () => {
-    const plugin = JSON.parse(readFileSync(join(root, '.claude-plugin', 'plugin.json'), 'utf8'));
+    const plugin = JSON.parse(readFileSync(join(root, 'skills', '.claude-plugin', 'plugin.json'), 'utf8'));
     const market = JSON.parse(readFileSync(join(root, '.claude-plugin', 'marketplace.json'), 'utf8'));
     expect(plugin.name).toBe('chanmeng-svg-animation-studio');
-    expect(plugin.skills).toBe('./skills/');
+    expect(plugin.skills).toBe('./');
     expect(market.plugins[0].name).toBe(plugin.name);
+    expect(market.plugins[0].source).toBe('./skills');
     expect(plugin.version).toBe(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version);
   });
 

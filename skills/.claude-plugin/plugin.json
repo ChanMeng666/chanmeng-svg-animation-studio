@@ -12,5 +12,5 @@
   "repository": "https://github.com/ChanMeng666/chanmeng-svg-animation-studio",
   "license": "MIT",
   "keywords": ["svg", "animation", "readme", "github", "product-card", "css-keyframes", "agent-skills", "claude-code"],
-  "skills": "./skills/"
+  "skills": "./"
 }
