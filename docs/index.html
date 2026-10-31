@@ -1,217 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SVG Animation Studio — Live Preview</title>
-  <meta name="description" content="Composable SVG animation system driven by Claude Code. Five working presets, animated live." />
-  <meta property="og:title" content="SVG Animation Studio" />
-  <meta property="og:description" content="Describe an animation in natural language. Get a production-ready .svg file." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animated README cards for your project · Animation Studio</title>
+  <meta name="description" content="An agent skill that turns your project into an animated SVG promo card for your GitHub README: your product's real interface running, in one sharp file. Not a GIF.">
+  <meta property="og:title" content="Your README can show your product working">
+  <meta property="og:description" content="An agent skill that turns your project into an animated SVG promo card. Not a GIF, not a screen recording.">
+  <meta property="og:image" content="https://chanmeng666.github.io/chanmeng-svg-animation-studio/og.png">
+  <meta property="og:url" content="https://chanmeng666.github.io/chanmeng-svg-animation-studio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://chanmeng666.github.io/chanmeng-svg-animation-studio/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0b;
-      --surface: #14141a;
-      --border: #2a2a35;
-      --text: #f5f5f7;
-      --muted: #8a8a95;
-      --accent: #c4a8ff;
-      --code-bg: #1f1f28;
+      --canvas: #E2E2DF;
+      --ash: #F7F6F2;
+      --ink: #070607;
+      --muted: #5B5B59;
+      --orange: #FC5000;
+      --violet: #524AE9;
+      --on-ink-muted: #A9A8A3;
+      --rule: rgba(7, 6, 7, .16);
+      --r: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: var(--canvas); color: var(--ink); font: 400 17px/1.55 "DM Sans", system-ui, sans-serif; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+    .wrap { width: min(1180px, 100%); margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .eyebrow { font: 500 13px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+    h1, h2 { font-family: Anton, Impact, sans-serif; font-weight: 400; line-height: 1.04; letter-spacing: .005em; }
+    h2 { font-size: clamp(2rem, 5vw, 3.25rem); margin-bottom: 14px; }
+    section { padding: 72px 0; }
+    .lead { max-width: 62ch; color: var(--muted); }
+
+    .button { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border: 1.5px solid currentColor; border-radius: 999px; font-weight: 700; text-decoration: none; }
+    .button.solid { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+    .button:hover { background: var(--ash); border-color: var(--ash); color: var(--ink); }
+
+    .top { background: var(--ink); color: var(--ash); padding: 18px 0 72px; }
+    .top nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 36px; font-size: 15px; }
+    .top nav strong { font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 22px; letter-spacing: .01em; }
+    .top nav a { text-decoration: none; }
+    .top nav a:hover { text-decoration: underline; }
+    .top nav div { display: flex; gap: 22px; }
+    .top .eyebrow { color: var(--on-ink-muted); margin-bottom: 20px; }
+    h1 { font-size: clamp(2.9rem, 7.4vw, 5.4rem); max-width: 19ch; margin-bottom: 20px; }
+    h1 em { font-style: normal; color: var(--orange); }
+    .top p.lead { color: #D5D4CF; font-size: clamp(1.05rem, 2vw, 1.2rem); margin-bottom: 22px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .player { margin-top: -44px; }
+    .frame { background: var(--ash); border-radius: var(--r); padding: 14px; }
+    .scroller { overflow-x: auto; border-radius: 10px; }
+    .scroller img { width: 100%; min-width: 680px; aspect-ratio: 1300 / 360; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
+    .tabs button { min-height: 44px; padding: 0 16px; border: 1.5px solid var(--rule); border-radius: 999px; background: transparent; color: var(--ink); font: 500 15px "DM Sans", system-ui, sans-serif; cursor: pointer; }
+    .tabs button:hover { border-color: var(--ink); }
+    .tabs button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--ash); }
+    .caption { min-height: 3.2em; color: var(--muted); padding: 0 4px; }
+    .note { margin-top: 14px; font-size: 15px; color: var(--muted); }
+
+    .compare { width: 100%; border-collapse: collapse; margin-top: 28px; background: var(--ash); border-radius: var(--r); overflow: hidden; }
+    .compare th, .compare td { text-align: left; padding: 16px 20px; vertical-align: top; border-top: 1px solid var(--rule); }
+    .compare thead th { border-top: 0; font: 500 13px "JetBrains Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .compare td:nth-child(2) { font-weight: 500; }
+    .compare td:nth-child(3) { color: var(--muted); }
+    .table-scroll { overflow-x: auto; }
+
+    .steps { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 28px; counter-reset: step; }
+    .steps li { background: var(--ash); border-radius: var(--r); padding: 24px; counter-increment: step; }
+    .steps li::before { content: counter(step); display: block; font: 400 38px/1 Anton, Impact, sans-serif; color: var(--orange); margin-bottom: 14px; }
+    .steps h3 { font-size: 19px; margin-bottom: 6px; }
+    .steps p { color: var(--muted); font-size: 16px; }
+
+    .install { background: var(--orange); }
+    .install .lead { color: var(--ink); }
+    .command { display: flex; align-items: center; gap: 12px; background: var(--ink); color: var(--ash); border-radius: 10px; padding: 12px 12px 12px 18px; margin-top: 12px; max-width: 900px; }
+    .command code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font: 400 15px/1.6 "JetBrains Mono", ui-monospace, monospace; }
+    .command button { flex: none; min-height: 40px; padding: 0 16px; border: 1.5px solid var(--on-ink-muted); border-radius: 999px; background: transparent; color: var(--ash); font: 500 14px "DM Sans", system-ui, sans-serif; cursor: pointer; }
+    .command button:hover { background: var(--ash); color: var(--ink); }
+    .install h3 { margin-top: 30px; font-size: 19px; }
+
+    .also { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+    .minis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .minis div { background: var(--ash); border-radius: var(--r); padding: 12px; }
+    .minis img { width: 100%; aspect-ratio: 1; }
+
+    footer { background: var(--ink); color: var(--on-ink-muted); padding: 34px 0; font-size: 15px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+    footer a { color: var(--ash); }
+
+    @media (max-width: 760px) {
+      section { padding: 56px 0; }
+      .also { grid-template-columns: 1fr; }
+      .top nav { margin-bottom: 48px; }
     }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-    header { margin-bottom: 48px; }
-    h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-    .tagline {
-      font-size: 1.125rem;
-      color: var(--muted);
-      max-width: 640px;
-      margin-bottom: 20px;
-    }
-    .links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .links a {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: all 0.15s;
-    }
-    .links a:hover { border-color: var(--accent); background: var(--code-bg); }
-    .links a.primary { background: var(--accent); color: #1a0e3a; border-color: var(--accent); font-weight: 600; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 64px;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: border-color 0.15s;
-    }
-    .card:hover { border-color: var(--accent); }
-    .card-svg {
-      background: #f7f7f8;
-      border-radius: 8px;
-      padding: 12px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 180px;
-      margin-bottom: 12px;
-    }
-    .card-svg img { max-width: 100%; height: auto; }
-    .card-name {
-      font-family: "SF Mono", Menlo, monospace;
-      font-size: 0.875rem;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .card-desc {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      text-align: center;
-    }
-    section.demo {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-      margin-bottom: 32px;
-    }
-    section.demo h2 { font-size: 1.25rem; margin-bottom: 16px; }
-    pre {
-      background: var(--code-bg);
-      border-radius: 8px;
-      padding: 16px;
-      overflow-x: auto;
-      font-family: "SF Mono", Menlo, monospace;
-      font-size: 0.875rem;
-      color: #e5e5e7;
-    }
-    .quote {
-      font-style: italic;
-      color: var(--muted);
-      padding-left: 16px;
-      border-left: 2px solid var(--accent);
-      margin: 12px 0;
-    }
-    footer {
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-      color: var(--muted);
-      font-size: 0.8125rem;
-      text-align: center;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>SVG Animation Studio</h1>
-      <p class="tagline">
-        A composable SVG animation system driven by Claude Code.
-        Describe an animation in natural language. Get a production-ready
-        <code>.svg</code> file.
-      </p>
-      <div class="links">
-        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio" class="primary">GitHub →</a>
-        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/README.md">README</a>
-        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/docs/ARCHITECTURE.md">Architecture</a>
-        <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/releases/tag/v0.1.0">v0.1.0 Release</a>
+  <header class="top">
+    <div class="wrap">
+      <nav aria-label="Main">
+        <strong>Animation Studio</strong>
+        <div><a href="#install">Install</a><a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio">GitHub</a></div>
+      </nav>
+      <p class="eyebrow">An agent skill for your README</p>
+      <h1>Your README can show your product <em>working.</em></h1>
+      <p class="lead">Ask your coding agent for a card. It reads your project and makes one animated SVG where your real interface runs. Not a GIF, and not a screen recording.</p>
+      <div class="actions">
+        <a class="button solid" href="#install">Make your card</a>
+        <a class="button" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio">Star on GitHub</a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <section class="demo">
-      <h2>The 30-second demo</h2>
-      <p>Open the repo in Claude Code. Type a sentence. Watch it animate.</p>
-      <div class="quote">"做一个会跳的紫色机器人"  (make me a jumping purple robot)</div>
-      <pre>/chanmeng-svg-animate auto-triggers
-  → forks the closest existing preset (claude-jumping)
-  → reuses 4 motion primitives + 2 shape primitives
-  → writes output/purple-robot-jumping.svg
-  → /chanmeng-svg-verify dispatches a subagent, returns ≤100-word verdict
-  → iterates once on the feedback
-  → offers /chanmeng-svg-export to ship</pre>
-      <p style="margin-top: 16px; color: var(--muted); font-size: 0.9rem;">
-        No SVG hand-written. No keyframe manually computed. The 5th preset
-        below (<code>purple-robot-jumping</code>) was generated entirely from
-        that single sentence in a real field test.
-      </p>
-    </section>
-
-    <h2 style="margin-bottom: 20px;">Five working presets</h2>
-    <p style="color: var(--muted); margin-bottom: 24px;">
-      Each preset is a working file (~30–50 lines) that composes motion, shape,
-      and filter primitives. Click to view source.
-    </p>
-
-    <div class="grid">
-      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/claudeJumping.js" style="text-decoration: none; color: inherit;">
-        <div class="card-svg"><img src="preview/claude-jumping.svg" alt="claude-jumping" /></div>
-        <div class="card-name">claude-jumping</div>
-        <div class="card-desc">Squash-stretch jump + ear bounce stagger + synced shadow</div>
-      </a>
-      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/claudeSpeaking.js" style="text-decoration: none; color: inherit;">
-        <div class="card-svg"><img src="preview/claude-speaking.svg" alt="claude-speaking" /></div>
-        <div class="card-name">claude-speaking</div>
-        <div class="card-desc">Idle bob + mouth talk + sound waves + floating music notes</div>
-      </a>
-      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/codexJumping.js" style="text-decoration: none; color: inherit;">
-        <div class="card-svg"><img src="preview/codex-jumping.svg" alt="codex-jumping" /></div>
-        <div class="card-name">codex-jumping</div>
-        <div class="card-desc">Gradient cloud body + filter depth + same kinematics</div>
-      </a>
-      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/codexSpeaking.js" style="text-decoration: none; color: inherit;">
-        <div class="card-svg"><img src="preview/codex-speaking.svg" alt="codex-speaking" /></div>
-        <div class="card-name">codex-speaking</div>
-        <div class="card-desc">Voice rings + glow filters + ellipse mouth</div>
-      </a>
-      <a class="card" href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/lib/presets/purpleRobotJumping.js" style="text-decoration: none; color: inherit;">
-        <div class="card-svg"><img src="preview/purple-robot-jumping.svg" alt="purple-robot-jumping" /></div>
-        <div class="card-name">purple-robot-jumping</div>
-        <div class="card-desc">Grown entirely from one natural-language sentence</div>
-      </a>
+  <main>
+    <div class="wrap player">
+      <div class="frame">
+        <div class="scroller">
+          <img id="card" src="https://chanmeng666.github.io/ChanMeng666/public/cards/archlang.svg" width="1300" height="360" alt="">
+        </div>
+        <div class="tabs" role="tablist" aria-label="Example cards" id="tabs"></div>
+        <p class="caption" id="caption" role="tabpanel" aria-live="polite"></p>
+      </div>
+      <p class="note">Every card here is live on <a href="https://github.com/ChanMeng666">Chan Meng's GitHub profile</a>, made with the method and kit this skill ships. Each one is a single SVG file playing in your browser right now.</p>
     </div>
 
-    <section class="demo">
-      <h2>Quick start</h2>
-      <pre>git clone https://github.com/ChanMeng666/chanmeng-svg-animation-studio.git
-cd chanmeng-svg-animation-studio
-npm install
-
-npm run dev                              # preview grid at localhost:3030
-node lib/render-cli.js claude-jumping    # render a preset to output/
-npm test                                 # snapshot test suite</pre>
+    <section>
+      <div class="wrap">
+        <p class="eyebrow">Why not a GIF</p>
+        <h2>It looks like your product because it is built from it</h2>
+        <p class="lead">A recording shows what your product looked like on one day. A card is rebuilt from your source.</p>
+        <div class="table-scroll">
+          <table class="compare">
+            <thead><tr><th scope="col"></th><th scope="col">A card</th><th scope="col">A screen recording</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Text</th><td>Vector outlines, sharp at any width</td><td>Pixels, soft at README size</td></tr>
+              <tr><th scope="row">Length</th><td>A 30-second card is 313 KB</td><td>Long clips grow quickly</td></tr>
+              <tr><th scope="row">Your brand</th><td>Your tokens, your fonts, your wordmark</td><td>Whatever was on screen</td></tr>
+              <tr><th scope="row">After a release</th><td>The build fails when the product stops matching</td><td>Goes stale without telling you</td></tr>
+              <tr><th scope="row">Reduced motion</th><td>Rests on a complete still frame</td><td>Keeps playing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
-    <footer>
-      Built with <a href="https://claude.com/claude-code">Claude Code</a>.
-      MIT licensed. © 2026 <a href="https://github.com/ChanMeng666">Chan Meng</a>.
-    </footer>
-  </div>
+    <section style="padding-top:0">
+      <div class="wrap">
+        <p class="eyebrow">What happens when you ask</p>
+        <h2>You describe nothing. It reads your repo.</h2>
+        <ol class="steps">
+          <li><h3>Reads your product</h3><p>Colour tokens, fonts, the real logo file, brand rules and the copy you have already approved.</p></li>
+          <li><h3>Picks the story</h3><p>What does your product do that can be shown happening? That becomes the stage.</p></li>
+          <li><h3>Builds from the source</h3><p>Compiled, quoted or redrawn from the real thing. Nothing on the stage is imagined.</p></li>
+          <li><h3>Proves it plays</h3><p>A gate for GitHub's image sandbox, then every scene captured on light and dark.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="install" id="install">
+      <div class="wrap">
+        <p class="eyebrow">Install</p>
+        <h2>Make yours in one sentence</h2>
+        <p class="lead">Free and open source under the MIT license. In Claude Code:</p>
+        <div class="command"><code>/plugin marketplace add ChanMeng666/chanmeng-svg-animation-studio</code><button type="button">Copy</button></div>
+        <div class="command"><code>/plugin install chanmeng-svg-animation-studio@chanmeng-svg-animation-studio</code><button type="button">Copy</button></div>
+        <h3>Then ask for it in your project</h3>
+        <div class="command"><code>Make an animated README card for this repo.</code><button type="button">Copy</button></div>
+        <p class="lead" style="margin-top:22px">Another coding agent? Point it at <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/skills/chanmeng-svg-product-card/SKILL.md">SKILL.md</a>. The kit is plain Node, and it is copied into your repo so the card rebuilds without the skill.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap also">
+        <div>
+          <p class="eyebrow">Also in the studio</p>
+          <h2>Mascots, logos and loaders</h2>
+          <p class="lead">The repo also holds a library of 44 animation primitives and four skills for characters, marks and banners. They run inside a clone of the repo. <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio/blob/main/docs/overview.md">Read the overview</a>.</p>
+        </div>
+        <div class="minis" aria-hidden="true">
+          <div><img src="preview/claude-jumping.svg" alt=""></div>
+          <div><img src="preview/purple-robot-jumping.svg" alt=""></div>
+          <div><img src="preview/codex-speaking.svg" alt=""></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Made by <a href="https://chanmeng.org/">Chan Meng</a>. MIT licensed.</span>
+      <a href="https://github.com/ChanMeng666/chanmeng-svg-animation-studio">View on GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    var BASE = 'https://chanmeng666.github.io/ChanMeng666/public/cards/';
+    var CARDS = [
+      { name: 'ArchLang', file: 'archlang', text: 'Source is typed beside the floor plan it compiles. Every drawing comes from the real compiler.' },
+      { name: 'ArchCanvas', file: 'archcanvas', text: 'One studio session: a brief, a draft in passes, an edit in plain words, then render and export.' },
+      { name: 'echook', file: 'echook', text: 'A terminal whose events raise a sound, a desktop toast and a phone notification.' },
+      { name: 'a11y-loop', file: 'a11y-loop', text: 'Write, audit across five passes, fix, audit again, with the checks automation could not judge.' },
+      { name: 'Google News MCP', file: 'google-news-mcp', text: 'A chat calls the tool, article cards drop into topic groups, and country and language switch.' },
+      { name: 'AI Programming', file: 'ai-programming-teaching-project', text: 'A version switcher, a lesson whose code types itself, a tutor citing its lessons, the capstone showcase.' }
+    ];
+    var img = document.getElementById('card');
+    var tabs = document.getElementById('tabs');
+    var caption = document.getElementById('caption');
+    function show(i) {
+      var c = CARDS[i];
+      img.src = BASE + c.file + '.svg';
+      img.alt = c.name + ' card. ' + c.text;
+      caption.textContent = c.name + ': ' + c.text;
+      Array.prototype.forEach.call(tabs.children, function (b, n) {
+        b.setAttribute('aria-selected', n === i ? 'true' : 'false');
+        b.tabIndex = n === i ? 0 : -1;
+      });
+    }
+    CARDS.forEach(function (c, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.role = 'tab';
+      b.setAttribute('role', 'tab');
+      b.textContent = c.name;
+      b.addEventListener('click', function () { show(i); });
+      b.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        var n = (i + d + CARDS.length) % CARDS.length;
+        show(n);
+        tabs.children[n].focus();
+      });
+      tabs.appendChild(b);
+    });
+    show(0);
+
+    document.querySelectorAll('.command button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var text = b.previousElementSibling.textContent;
+        var done = function () {
+          b.textContent = 'Copied';
+          setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { b.textContent = 'Press Ctrl+C'; });
+        else b.textContent = 'Press Ctrl+C';
+      });
+    });
+  </script>
 </body>
 </html>

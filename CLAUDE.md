@@ -34,7 +34,7 @@ primitives that came before.
 | `skills/chanmeng-svg-product-card/` | The installable skill: `SKILL.md`, `references/`, `kit/` (the toolkit, copied into a project by `scripts/init-kit.mjs`). |
 | `.claude-plugin/marketplace.json` · `skills/.claude-plugin/plugin.json` | The marketplace and the plugin. The plugin root is `skills/`, so the studio's own `package.json` is not treated as plugin dependencies. Keep `version` equal to `package.json`. |
 | `lib/easing.js` | Named easing curves for both CSS and SMIL. |
-| `docs/` | Permanent design memory. Open on demand. |
+| `docs/` | Permanent design memory. Open on demand. `index.html` is the public page (GitHub Pages, `main` + `/docs`); `overview.md` holds what left the README, which stays one screen. |
 | `playground/` | Next.js preview server. `/api/svg?preset=NAME` returns SVG. |
 | `output/` | Final `.svg` artifacts (gitignored). |
 | `ref/` | User-provided reference material (sketches, videos, sample SVGs). |

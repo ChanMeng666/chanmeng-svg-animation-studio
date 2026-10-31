@@ -9,6 +9,9 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ### Theme: the product card becomes a skill anyone can install
 
+The README and the public page now lead with what the skill is for: animated promo
+cards for a project. The library detail moved to `docs/overview.md`.
+
 The card method lived in a repo-bound guide written before the thirteen real cards
 were redrawn, and `git clone` into a skills folder registered nothing. It now ships
 as one self-contained skill through a plugin marketplace.
