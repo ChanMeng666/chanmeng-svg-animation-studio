@@ -27,7 +27,7 @@ How it relates to the rest of this studio:
 - Its verification harness (section 11) is what `scripts/capture-frames.mjs`
   automates for the `<img>` and reduced-motion steps.
 - For a card that shows a product at work rather than a mark, read
-  [`product-cards.md`](product-cards.md).
+  [`field-guide.md`](../skills/chanmeng-svg-product-card/references/field-guide.md).
 
 ---
 
@@ -968,7 +968,7 @@ Winter props span both winter windows (76–98.5 s). Seasons occupy 0–25 / 25�
 
 ## See also
 
-- [`product-cards.md`](product-cards.md) — the other long-form guide: a product at
+- [`field-guide.md`](../skills/chanmeng-svg-product-card/references/field-guide.md) — the other long-form guide: a product at
   work in one SVG.
 - [`embedding-animated-svg.md`](embedding-animated-svg.md) — what `<img>` allows.
 - [`logo-math.md`](https://github.com/ChanMeng666/chan-meng-logo/blob/main/docs/logo-math.md) in chan-meng-logo — how that mark's

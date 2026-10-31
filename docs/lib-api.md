@@ -557,7 +557,7 @@ No font loads inside `<img>`. `scripts/outline-text.mjs` turns one string into o
 path, which reuses nothing. A glyph set stores each glyph **once** in `<defs>` (font
 units, y up) and places it with `<use x="advance">`; the run's wrapper scales and
 flips it. Use it for anything longer than a display word: paragraphs, code, UI text.
-Method and pitfalls: `docs/product-cards.md` § 6.1.
+Method and pitfalls: `skills/chanmeng-svg-product-card/references/field-guide.md` § 6.1.
 
 ### `createGlyphSet(fonts, { prefix? })`
 
@@ -612,7 +612,7 @@ Used by: `project-card`, `film-strip`.
 ## media.* (pictures inside the file)
 
 An SVG shown as `<img>` cannot fetch a picture but can carry one as a data URI.
-Budget and trade-offs: `docs/product-cards.md` § 6.7, 6.8 and 8.
+Budget and trade-offs: `skills/chanmeng-svg-product-card/references/field-guide.md` § 6.7, 6.8 and 8.
 
 ### `dataUri(fileOrBuffer, mime?)`
 

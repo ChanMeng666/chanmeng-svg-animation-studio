@@ -39,7 +39,7 @@ is to convert text to vector outlines at **build time** and inline the resulting
 - That script makes **one path per string**, which is right for a display word and
   wasteful for anything longer: nothing is reused. For paragraphs, code or UI text
   use `lib/text.js` (`createGlyphSet`), which stores each glyph once and places it
-  with `<use>`. See `docs/product-cards.md` § 6.1.
+  with `<use>`. See `skills/chanmeng-svg-product-card/references/field-guide.md` § 6.1.
 - Vendored fonts live in `assets/fonts/`. Use static instances.
 - Cost: outlined text isn't selectable. Carry the real string in the SVG `<title>`/`<desc>` and the host `<img alt>` for accessibility/SEO.
 

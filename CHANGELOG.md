@@ -5,6 +5,42 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-31
+
+### Theme: the product card becomes a skill anyone can install
+
+The card method lived in a repo-bound guide written before the thirteen real cards
+were redrawn, and `git clone` into a skills folder registered nothing. It now ships
+as one self-contained skill through a plugin marketplace.
+
+#### Added
+- `skills/chanmeng-svg-product-card/`: the workflow, the current field guide, a kit
+  API reference, a starter card, and `init-kit.mjs`, which copies the kit into a
+  project so its cards rebuild without the skill.
+- `.claude-plugin/`: plugin and marketplace manifests.
+- `kit/check-card.mjs`: a static gate for the `<img>` sandbox, calibrated on thirteen
+  real cards.
+- `kit/shell.cjs`: the 1300 × 360 frame and an identity panel that refuses a fifth
+  item, a long eyebrow or a sub-line that would wrap. `kit/drawing.cjs`: layer
+  splitting for compiler output.
+
+#### Changed
+- The toolkit moved into the skill's `kit/`. `lib/text.js`, `lib/timeline.js`,
+  `lib/media.js`, `scripts/capture-frames.mjs` and `scripts/film-stills.mjs` are shims,
+  so every existing path still works.
+- `docs/product-cards.md` is a pointer; the guide is the skill's `field-guide.md`,
+  rewritten to the rule that a card carries no prose and no closing frame.
+- `project-card` no longer ends on a frame about what ships: the stage types, renders
+  and runs, and its finished state is the still frame. Snapshot updated.
+- `chanmeng-svg-animate` hands product cards to the new skill instead of competing
+  with it. `chanmeng-svg-verify` falls back to `capture-frames.mjs` when the
+  chrome-devtools MCP is missing, instead of skipping visual verification.
+
+#### Fixed
+- `text`: a font with GSUB lookups opentype.js cannot run (Inter is one) crashed the
+  build; it is now laid out glyph by glyph.
+- `capture-frames`: tries Chrome, Edge, then Playwright's Chromium.
+
 ### Theme: product cards — a product at work in one SVG (2026-10-07)
 
 Six animated project cards were built for a GitHub profile with hand-rolled

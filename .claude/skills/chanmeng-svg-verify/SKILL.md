@@ -101,7 +101,7 @@ loads the SVG as a document for that, because emulation does not reach `<img>`).
 Read the PNGs. Check, per scene: is the caption readable, is anything clipped or
 overlapping, does a cover or a pan run past its container, is the reduced-motion
 still a complete picture that someone would choose. Score against
-`docs/product-cards.md` § 7 as well as the rubric below.
+`skills/chanmeng-svg-product-card/references/field-guide.md` § 7 as well as the rubric below.
 
 ### 3. Capture 5 keyframes
 
@@ -199,11 +199,19 @@ ENVIRONMENT limit from a real animation DEFECT:
 
 - **Pre-flight — MCP not available** (tools absent, or a probe like
   `mcp__chrome-devtools__list_pages` errors "not connected / unknown tool"):
-  do not try to grade. Return, without blocking the caller:
+  do not stop there. Render with `npm run render <slug>` and capture with Playwright
+  instead, which needs no MCP:
+
+  ```
+  node scripts/capture-frames.mjs output/<slug>.svg --at=0.4,1.2,2,3,4 --out=output/frames
+  ```
+
+  Read the PNGs in `output/frames/` and grade them as usual. Only if that fails too
+  (no browser), return, without blocking the caller:
 
   ```
   VERDICT: pass
-  Note: Visual verification skipped — chrome-devtools MCP unavailable in this context. Not visually graded.
+  Note: Visual verification skipped — no chrome-devtools MCP and no browser for capture-frames. Not visually graded.
   Issues:
   Strengths:
   ```

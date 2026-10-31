@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "chanmeng-svg-animation-studio",
+  "version": "0.2.0",
+  "description": "Make animated SVG product cards that play inside a GitHub README: the product's real interface redrawn in vectors and running, with outlined text, one CSS-only loop and a still frame for reduced motion, checked by a sandbox gate and timed captures on both canvases.",
+  "author": {
+    "name": "Chan Meng",
+    "email": "chanmeng.dev@gmail.com",
+    "url": "https://github.com/ChanMeng666"
+  },
+  "homepage": "https://github.com/ChanMeng666/chanmeng-svg-animation-studio",
+  "repository": "https://github.com/ChanMeng666/chanmeng-svg-animation-studio",
+  "license": "MIT",
+  "keywords": ["svg", "animation", "readme", "github", "product-card", "css-keyframes", "agent-skills", "claude-code"],
+  "skills": "./skills/"
+}

@@ -16,6 +16,7 @@ primitives that came before.
 - `/chanmeng-svg-verify <slug>` — visual verification (chrome-devtools MCP, subagent)
 - `/chanmeng-svg-add-primitive <category>.<name>` — extend lib safely
 - `/chanmeng-svg-export <slug> [--out=path]` — SVGO + accessibility + ship
+- `chanmeng-svg-product-card` — a README card showing a product at work. The one skill that installs on its own: `skills/`, published through `.claude-plugin/`
 - `npm run render <preset>` — render an existing preset to `output/`
 - `npm run dev` — preview grid at http://localhost:3030
 
@@ -29,7 +30,9 @@ primitives that came before.
 | `lib/composer.js` | The only allowed way to assemble a final `<svg>` string. |
 | `lib/scene.js` | Layer/scene composer (sits BELOW composeSVG). Handles the static-vs-animated transform nesting. NOT a primitive — edit directly. |
 | `lib/palettes.js` | Curated named palettes (theme system). NOT a primitive — edit directly. |
-| `lib/text.js` · `lib/timeline.js` · `lib/media.js` | The product-card toolkit: shared-glyph text, one-loop scheduling, embedded pictures. NOT primitives — edit directly. |
+| `lib/text.js` · `lib/timeline.js` · `lib/media.js` | Shims for the product-card toolkit, which lives in `skills/chanmeng-svg-product-card/kit/`. Edit it there. |
+| `skills/chanmeng-svg-product-card/` | The installable skill: `SKILL.md`, `references/`, `kit/` (the toolkit, copied into a project by `scripts/init-kit.mjs`). |
+| `.claude-plugin/` | The plugin and marketplace manifests. Keep `version` equal to `package.json`. |
 | `lib/easing.js` | Named easing curves for both CSS and SMIL. |
 | `docs/` | Permanent design memory. Open on demand. |
 | `playground/` | Next.js preview server. `/api/svg?preset=NAME` returns SVG. |
@@ -46,7 +49,7 @@ primitives that came before.
 > Names only. Full signatures live in `docs/lib-api.md`. Open that file when
 > composing a preset or extending a primitive.
 
-**`lib/primitives/motion.js`** — animation kinematics (21)
+**`lib/primitives/motion.js`** — animation kinematics (21; 44 primitives across the four files)
 - `createJump` — squash-and-stretch jump with synced shadow hook
 - `createBob` — gentle vertical idle loop
 - `createTalk` — mouth open/close via Y-scale
@@ -127,6 +130,7 @@ primitives that came before.
 - `outline-text.mjs --font --text --size [--out --key]` — ONE display string → one `<path>` (longer text: `lib/text.js`)
 - `film-stills.mjs --in --at|--from --seconds --fps [--crop --size --q]` — video → JPEG data URIs for `lib/media.js`
 - `capture-frames.mjs <file.svg> --at=…` — timed `<img>` captures on both canvases + the reduced-motion check
+- `film-stills.mjs` and `capture-frames.mjs` are shims into the skill's `kit/`; `kit/check-card.mjs` is the static `<img>` sandbox gate
 
 ## 4. Workflow (the natural-language loop)
 
@@ -188,7 +192,7 @@ Multi-asset jobs: `docs/sprint-4-workflows.md`.
 - How to design a new subagent → `docs/sprint-3-subagents.md`
 - How to add a primitive safely → `docs/extension-protocol.md`
 - Animation feels off → `docs/animation-principles.md`
-- A card showing a product at work (README project card, product demo) → `docs/product-cards.md`; fork `project-card`
+- A card showing a product at work (README project card, product demo) → the `chanmeng-svg-product-card` skill; guide `skills/chanmeng-svg-product-card/references/field-guide.md`
 - A logo that changes expression on a long loop, on frozen geometry → `docs/animating-a-mark.md`
 - SVG broken once embedded on GitHub / in a README (`<img>`) → `docs/embedding-animated-svg.md` (fonts→outline, transform-attr vs CSS-transform, reduced-motion, SVGO hazards)
 - What shipped, when, and why → `CHANGELOG.md`

@@ -149,7 +149,8 @@ that doesn't compound.
 ## Product cards (a product at work, in one SVG)
 
 Reach for this when the request is a README project card, a product demo, or
-"show what it does". Full method: `docs/product-cards.md`.
+"show what it does". The whole job now lives in the `chanmeng-svg-product-card` skill; its guide is
+`skills/chanmeng-svg-product-card/references/field-guide.md`. This section remains for forking `project-card` inside the studio.
 
 | Need | Reach for |
 |---|---|

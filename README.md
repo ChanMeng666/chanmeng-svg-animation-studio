@@ -3,8 +3,8 @@
 > A composable SVG animation system driven by Claude Code. Describe an
 > animation in natural language. Get a production-ready `.svg` file.
 
-[![Tests](https://img.shields.io/badge/tests-121%2F121-brightgreen)](./tests)
-[![Primitives](https://img.shields.io/badge/primitives-39-blue)](./docs/lib-api.md)
+[![Tests](https://img.shields.io/badge/tests-152%2F152-brightgreen)](./tests)
+[![Primitives](https://img.shields.io/badge/primitives-44-blue)](./docs/lib-api.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-orange)](https://claude.com/claude-code)
 
@@ -52,22 +52,37 @@ Run `npm run dev` to see them animated in the browser preview grid.
 Beyond mascots, logos and loaders, the studio builds **product cards**: one SVG,
 usually 1300 × 360, that plays inside a README and shows a product doing its job.
 
-![A project card: five lines of a preset are typed, the character they describe arrives and jumps, then a closing frame lists what ships](./docs/preview/project-card.svg)
+![A project card: five lines of a preset are typed, the render command reports the file it wrote, and the character those lines describe arrives and jumps](./docs/preview/project-card.svg)
 
-That needs three things a motion primitive does not give, so they are modules of
-their own:
+This is the one part of the studio that installs on its own. In Claude Code:
 
-| Module | What it is for |
+```
+/plugin marketplace add ChanMeng666/chanmeng-svg-animation-studio
+/plugin install chanmeng-svg-animation-studio@chanmeng-svg-animation-studio
+```
+
+Then ask for a card in any project ("make an animated README card for this repo").
+The [`chanmeng-svg-product-card`](./skills/chanmeng-svg-product-card/SKILL.md) skill
+reads the product, copies its kit into your repo so the card rebuilds without the
+skill, and checks the result against GitHub's `<img>` sandbox and on both canvases.
+Any other agent can read that `SKILL.md` and follow it; the kit is plain Node.
+
+| In the kit | What it is for |
 |---|---|
-| [`lib/text.js`](./lib/text.js) | Text that survives `<img>` at any length: each glyph outlined once, placed with `<use>` |
-| [`lib/timeline.js`](./lib/timeline.js) | A schedule on one loop (`on`, `span`, `until`, shared scene keyframes, typed text), with the finished frame as the base state |
-| [`lib/media.js`](./lib/media.js) | Pictures carried inside the file: a stepped film strip, cross-faded stills |
+| `text.cjs` | Text that survives `<img>` at any length: each glyph outlined once, placed with `<use>` |
+| `timeline.cjs` | A schedule on one loop (`on`, `span`, `until`, shared scene keyframes, typed text), with the finished frame as the base state |
+| `media.cjs` | Pictures carried inside the file: a stepped film strip, cross-faded stills |
+| `shell.cjs` | The 1300 × 360 file and an identity panel that refuses prose |
+| `check-card.mjs` | A static gate for what fails inside `<img>` |
+| `capture-frames.mjs` | Timed captures on both canvases and the reduced-motion check |
+
+The other four skills (`chanmeng-svg-animate`, `-verify`, `-export`, `-add-primitive`)
+drive this repo's own library, so they work in a clone of it, not as an install.
 
 Two long-form guides hold the method and the mistakes:
-[`docs/product-cards.md`](./docs/product-cards.md) (a product at work) and
-[`docs/animating-a-mark.md`](./docs/animating-a-mark.md) (a frozen logo that
-changes expression on a long loop). Verify any timed piece with
-`node scripts/capture-frames.mjs output/<slug>.svg --at=2,5,10`.
+[`field-guide.md`](./skills/chanmeng-svg-product-card/references/field-guide.md) (a product at work) and
+[`docs/animating-a-mark.md`](./docs/animating-a-mark.md) (a frozen logo that changes
+expression on a long loop).
 
 ---
 
