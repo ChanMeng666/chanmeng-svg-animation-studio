@@ -10,6 +10,8 @@ description: |
   produces a passing verdict and before the SVG is committed or shared.
 allowed-tools: Read, Write, Bash(npx svgo*), Bash(node*), Bash(Copy-Item*), Bash(cp*)
 argument-hint: <preset-slug> [--out=<path>]
+metadata:
+  internal: true
 ---
 
 You finalize an SVG that's already been rendered and visually verified.

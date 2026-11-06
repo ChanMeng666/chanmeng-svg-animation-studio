@@ -14,6 +14,8 @@ agent: lib-extender
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash(npm test*), Bash(npm run snapshot:update*)
 argument-hint: <category>.<name>  (e.g., motion.createOrbit)
+metadata:
+  internal: true
 ---
 
 You are extending the system's vocabulary. A new primitive is a long-term

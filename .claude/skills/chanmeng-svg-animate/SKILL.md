@@ -17,6 +17,8 @@ description: |
   "as an SVG file" or asks for something to drop into output/, this skill is
   the right entry point.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash(node lib/*), Bash(npm test*), Bash(npm run dev*), Bash(npm run render*), Bash(node*)
+metadata:
+  internal: true
 ---
 
 You are the entry point for SVG animation requests in this repository.
