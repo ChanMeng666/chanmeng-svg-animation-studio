@@ -18,6 +18,14 @@ Each of these is live on [a real GitHub profile](https://github.com/ChanMeng666)
 
 ## Install
 
+**Any agent** (Claude Code, Cursor, Codex, GitHub Copilot and more), with the skills CLI. Listed on [skills.sh](https://skills.sh/chanmeng666):
+
+```bash
+npx skills add ChanMeng666/chanmeng-svg-animation-studio
+```
+
+**Claude Code plugin:**
+
 ```
 /plugin marketplace add ChanMeng666/chanmeng-svg-animation-studio
 /plugin install chanmeng-svg-animation-studio@chanmeng-svg-animation-studio

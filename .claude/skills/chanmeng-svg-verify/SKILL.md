@@ -12,6 +12,8 @@ context: fork
 agent: svg-verifier
 allowed-tools: Read, Bash(npm run dev*), Bash(curl*), mcp__chrome-devtools__*
 argument-hint: <preset-slug>
+metadata:
+  internal: true
 ---
 
 You verify a generated SVG. You run in an isolated subagent context. The
