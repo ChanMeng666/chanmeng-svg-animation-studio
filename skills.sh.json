@@ -1,0 +1,23 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Install this",
+      "description": "The skill this repository ships.",
+      "skills": [
+        "chanmeng-svg-product-card"
+      ]
+    },
+    {
+      "title": "Earlier names",
+      "description": "Studio tools from before the rename. They run only inside this repository and are no longer offered for install. Install chanmeng-svg-product-card.",
+      "skills": [
+        "svg-animate",
+        "svg-verify",
+        "svg-export",
+        "svg-add-primitive"
+      ]
+    }
+  ]
+}
