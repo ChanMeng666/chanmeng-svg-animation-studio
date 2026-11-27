@@ -22,7 +22,10 @@ animated name with drifting confetti is a business card. So the work is mostly
 reading the product and finding what it does that can be shown happening; the SVG
 mechanics are solved by the kit.
 
-`<skill-dir>` below is the folder holding this file.
+`<skill-dir>` below is the folder holding this file: `${CLAUDE_SKILL_DIR}` where the
+host substitutes it, and the folder you loaded this file from where that still reads
+as a literal `${...}`. Never take it from a shell environment variable: a shell can
+carry another plugin's value.
 
 ## Before drawing
 
@@ -53,8 +56,12 @@ Now decide two things and state them in one line each before writing code:
 
 ```bash
 node <skill-dir>/scripts/init-kit.mjs --dest=scripts/cards --id=<card-id>
-npm i -D opentype.js playwright-core      # the command prints what is missing
+node <dest>/lib/doctor.mjs                # what is missing; --fix installs it
 ```
+
+`doctor` starts the browser once, because found is not started: an agent sandbox can
+block an installed browser. With `--fix` it installs `opentype.js`, `playwright-core`
+and, when no browser starts, Playwright's Chromium.
 
 The kit is copied into the project on purpose: a card is rebuilt long after this skill
 was used, by someone who may not have it. Pick a `--dest` that suits the project.
@@ -98,12 +105,22 @@ Run these in order. A card is not done because one frame looks right.
 node <dest>/<card-id>.mjs
 node <dest>/lib/check-card.mjs <card>.svg
 node <dest>/lib/capture-frames.mjs <card>.svg --at=<one time inside each scene, and the end of the last> --out=<scratch dir>
+node <dest>/lib/qa-loop.mjs <card>.svg --out=<scratch dir>
 ```
+
+The kit's scripts share exit codes: **0** passed, **1** a real failure, **2** usage,
+**3** environment (no `playwright-core` or no browser that starts: run `doctor.mjs`,
+it is not the card's fault).
 
 `check-card` errors are real failures. `capture-frames` exits non-zero when the image
 does not decode, or the reduced-motion picture still moves. Its timed frames are exact,
 so a tight transition can be checked to the tenth of a second. Keep the last time
 before the loop's dip (`tl.dip()`, the final 0.4 s), or you capture the fade.
+
+`qa-loop` measures the whole loop at ten frames a second: a seam that snaps (FAIL), a
+first frame nearly blank, a hard cut, a dead stretch (WARN: a held scene can be on
+purpose; say why at handover). It writes `<card>-sheet.png`, the loop in tiles with the
+start again as the last tile: one image that shows the rhythm of every scene.
 
 **Then look at the captures.** Open every one and check: text clipped by a window or
 overlapping a neighbour; a scene that reads as dead; the panel and stage in both the

@@ -81,6 +81,16 @@ Use `mcp__chrome-devtools__take_screenshot` WITHOUT `filePath` so images
 stay in your context. Do NOT save them to disk — they should die with this
 subagent.
 
+### Step 2b — Measure the whole loop
+
+Five frames cannot see a loop's seam or its rhythm. Run
+`node scripts/qa-loop.mjs output/<slug>.svg` (render first with
+`npm run render <slug>` if the file is missing) and read
+`output/frames/<slug>-sheet.png`: the loop in tiles, the last tile the start
+again. `FAIL loop seam` is a rubric point 2 fail. `WARN` lines are often on
+purpose; raise one only if the frames show it hurts. Exit 3 means no browser:
+skip this step and say nothing about the seam.
+
 ### Step 3 — Score against the 5-point rubric
 
 Per `docs/animation-principles.md`:

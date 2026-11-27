@@ -171,7 +171,8 @@ Rules that decide whether the card is any good:
    from a film, or capture the live site; fail the render when it stops agreeing.
 3. **The finished frame is the base state.** `on()` things belong to the still
    frame; `span()` things do not. Choose the still frame on purpose.
-4. **End on a frame about the work**, each figure with its basis on the same line.
+4. **End on the stage's own finished state**, not on a closing frame of figures or
+   prose: twelve cards were redone for that (field guide section 11).
 5. **Verify in time**: `node scripts/capture-frames.mjs output/<slug>.svg --at=…`.
 
 ## Color / theming notes

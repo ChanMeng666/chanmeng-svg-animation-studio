@@ -70,6 +70,6 @@ const found = (name) => {
   }
 };
 const missing = ["opentype.js", "playwright-core"].filter((name) => !found(name));
-if (missing.length) console.log(`next: npm i -D ${missing.join(" ")}`);
+if (missing.length) console.log(`next: npm i -D ${missing.join(" ")}   (or: node ${path.join(lib, "doctor.mjs")} --fix, which also checks the browser starts)`);
 console.log(`fonts: put the product's static TTF, OTF or WOFF files in ${path.join(dest, "fonts")}`);
 process.exit(refused.length ? 1 : 0);

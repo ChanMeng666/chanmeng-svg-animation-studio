@@ -5,6 +5,47 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-27
+
+### Theme: measure the loop, and remember what the user thought
+
+Borrowed from [lemo-wake](https://github.com/lemomo-ai/lemo-wake): a quality bar
+written from what was kept and redone, case cards with the hard part of each piece,
+a history of verdicts, numeric loop QA with a contact sheet, and an environment doctor.
+
+### Added
+- `kit/qa-loop.mjs` (`scripts/qa-loop.mjs`, `npm run verify:loop`): seeks the SVG's
+  clock (CSS and SMIL) across one whole loop, after any one-shot entrances, and checks
+  the seam (FAIL when the last frame snaps back to the first; a fade such as
+  `tl.dip()` passes), a nearly blank first frame, hard cuts and dead stretches (WARN).
+  Writes a contact sheet whose last tile is the loop's start, and a JSON report.
+- `kit/doctor.mjs` (`scripts/doctor.mjs`, `npm run doctor`): Node, `opentype.js`,
+  `playwright-core`, a browser that actually starts, ffmpeg; `--fix` installs what
+  the kit uses.
+- `scripts/history.mjs` and `docs/history.jsonl`: every piece with its signature move,
+  and the user's `keep` / `tweak` / `reject` with the reason.
+- The animate skill's `references/taste.md` (the bar, each rule with its source) and
+  `references/case-cards.md` (chan-cover, chan-monkey-live, project-card).
+- CI: `test.yml` runs `npm test` (snapshots, determinism, the version check), parses
+  every `.mjs`, and refuses files over 1 MB.
+
+### Changed
+- `chanmeng-svg-animate` asks once with defaults filled in (where it lives, size,
+  palette), reads taste, case cards and recent history before planning, states a
+  signature move and a swap test, runs `qa-loop`, and records the piece and verdict.
+- `chanmeng-svg-verify` and `svg-verifier` run `qa-loop` and read the sheet before
+  judging; a snapping seam fails rubric point 2.
+- The product-card skill runs `doctor` before the first build and `qa-loop` in Verify;
+  the kit's scripts share exit codes (0 ok, 1 failure, 2 usage, 3 environment).
+
+### Fixed
+- `capture-frames`: the first seek after load could paint the running animation
+  instead of the requested second; a throwaway seek now settles it.
+- The animate skill pointed at `references/lib-api.md` and
+  `references/animation-principles.md`, which live in `docs/`.
+- The cookbook still said a card should end on a frame about the work, which 0.2.0
+  reversed.
+
 ## [0.2.1] - 2026-11-04
 
 ### Changed

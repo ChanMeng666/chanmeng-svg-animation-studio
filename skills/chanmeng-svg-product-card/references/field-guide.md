@@ -371,9 +371,14 @@ Looking at one frame in a browser is not verification.
    Load the SVG as a top-level document with the emulation on, take two captures
    three seconds apart, and require them to be identical. `capture-frames.mjs` does
    steps 2 to 4.
-5. **The real host.** Push, open the profile, confirm each image decoded
+5. **The whole loop.** Frames at chosen seconds miss what happens between them.
+   `qa-loop.mjs` seeks the clock at ten frames a second across one loop and measures
+   the seam back to the start, a blank first frame, hard cuts and dead stretches, then
+   lays the loop out on one contact sheet. A `tl.dip()` passes as a fade; a 100%
+   keyframe that differs from its 0% fails.
+6. **The real host.** Push, open the profile, confirm each image decoded
    (`naturalWidth` is 1300) and capture it playing.
-6. **The project's own gates.** Schema, asset audit, copy lint.
+7. **The project's own gates.** Schema, asset audit, copy lint.
 
 ## 11. Mistakes worth not repeating
 
@@ -413,6 +418,8 @@ still frame, find the evidence for every element, build, then verify as in secti
 | `kit/check-card.mjs` | The static sandbox gate |
 | `kit/capture-frames.mjs` | Timed captures on both canvases, the reduced-motion check |
 | `kit/film-stills.mjs` | Stills or a strip out of a video, with ffmpeg |
+| `kit/qa-loop.mjs` | The whole loop measured: seam, first frame, cuts, dead stretches, and a contact sheet |
+| `kit/doctor.mjs` | Whether the kit can run here; `--fix` installs what it uses |
 
 The reference that set the bar was the profile README of
 [lemomo-ai](https://github.com/lemomo-ai/lemomo-ai): glyph subsetting, the film

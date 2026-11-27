@@ -1,0 +1,39 @@
+name: Test
+
+# The tests guard every lib/ change (snapshots, determinism), the kit, and the
+# packaging (plugin.json's version equals package.json's). None of them needs a
+# browser, so this job does not install one.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      - name: Scripts parse
+        run: |
+          for f in $(git ls-files '*.mjs'); do node --check "$f"; done
+
+      - name: No file over 1 MB in the repository
+        run: |
+          big=$(git ls-files -z | xargs -0 du -k | awk '$1 > 1024 { print $2 }')
+          [ -z "$big" ] || { echo "files over 1 MB:"; echo "$big"; exit 1; }
