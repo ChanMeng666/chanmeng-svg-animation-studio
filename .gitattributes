@@ -8,5 +8,8 @@ output/*.svg                        text eol=lf
 # Markdown — normalize to LF so diffs across platforms stay clean
 *.md                                text eol=lf
 
+# ES modules start with a shebang; a CRLF after it breaks vitest's import on Windows
+*.mjs                               text eol=lf
+
 # Default: let git handle it
 *                                   text=auto
