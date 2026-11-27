@@ -1,6 +1,6 @@
 {
   "name": "chanmeng-svg-animation-studio",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "description": "Composable SVG animation primitives driven by Claude Code",
   "scripts": {
@@ -12,7 +12,9 @@
     "test:snapshot": "vitest run tests/snapshot",
     "snapshot:update": "vitest run tests/snapshot -u",
     "optimize": "svgo -f output -o output --multipass",
-    "verify:frames": "node scripts/capture-frames.mjs"
+    "verify:frames": "node scripts/capture-frames.mjs",
+    "verify:loop": "node scripts/qa-loop.mjs",
+    "doctor": "node scripts/doctor.mjs"
   },
   "dependencies": {
     "next": "^15.0.0",

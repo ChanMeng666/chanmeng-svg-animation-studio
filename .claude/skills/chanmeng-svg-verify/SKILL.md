@@ -10,7 +10,7 @@ description: |
   into the calling thread.
 context: fork
 agent: svg-verifier
-allowed-tools: Read, Bash(npm run dev*), Bash(curl*), mcp__chrome-devtools__*
+allowed-tools: Read, Bash(npm run dev*), Bash(npm run render*), Bash(curl*), Bash(node scripts/*), mcp__chrome-devtools__*
 argument-hint: <preset-slug>
 ---
 
@@ -102,6 +102,22 @@ Read the PNGs. Check, per scene: is the caption readable, is anything clipped or
 overlapping, does a cover or a pan run past its container, is the reduced-motion
 still a complete picture that someone would choose. Score against
 `skills/chanmeng-svg-product-card/references/field-guide.md` § 7 as well as the rubric below.
+
+### 2d. Measure the whole loop first
+
+Before judging by eye, let the numbers and one sheet cover the whole loop:
+
+```bash
+node scripts/qa-loop.mjs output/$ARGUMENTS.svg
+```
+
+It seeks the SVG's clock across one full loop. A `FAIL loop seam` (the last frame
+snaps back to the first) is a rubric point 2 fail ("no jarring snaps"): report it.
+`WARN` lines (nearly blank first frame, hard cut, dead stretch) are often on purpose;
+mention one in Issues only if the frames show it hurts. Then read
+`output/frames/$ARGUMENTS-sheet.png`: the loop in tiles, the last tile the start
+again. It shows rhythm and the seam that five frames 0.1 s apart cannot. Exit 3
+means no browser: carry on with the MCP frames.
 
 ### 3. Capture 5 keyframes
 

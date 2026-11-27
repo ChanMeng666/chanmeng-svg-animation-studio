@@ -34,7 +34,7 @@ primitives that came before.
 | `skills/chanmeng-svg-product-card/` | The installable skill: `SKILL.md`, `references/`, `kit/` (the toolkit, copied into a project by `scripts/init-kit.mjs`). |
 | `.claude-plugin/marketplace.json` · `skills/.claude-plugin/plugin.json` | The marketplace and the plugin. The plugin root is `skills/`, so the studio's own `package.json` is not treated as plugin dependencies. Keep `version` equal to `package.json`. |
 | `lib/easing.js` | Named easing curves for both CSS and SMIL. |
-| `docs/` | Permanent design memory. Open on demand. `index.html` is the public page (GitHub Pages, `main` + `/docs`); `overview.md` holds what left the README, which stays one screen. |
+| `docs/` | Permanent design memory. Open on demand. `index.html` is the public page (GitHub Pages, `main` + `/docs`); `overview.md` holds what left the README, which stays one screen; `history.jsonl` is every piece made and the user's verdict on it (`scripts/history.mjs`). |
 | `playground/` | Next.js preview server. `/api/svg?preset=NAME` returns SVG. |
 | `output/` | Final `.svg` artifacts (gitignored). |
 | `ref/` | User-provided reference material (sketches, videos, sample SVGs). |
@@ -129,8 +129,9 @@ primitives that came before.
 **`scripts/`** (build-time helpers)
 - `outline-text.mjs --font --text --size [--out --key]` — ONE display string → one `<path>` (longer text: `lib/text.js`)
 - `film-stills.mjs --in --at|--from --seconds --fps [--crop --size --q]` — video → JPEG data URIs for `lib/media.js`
-- `capture-frames.mjs <file.svg> --at=…` — timed `<img>` captures on both canvases + the reduced-motion check
-- `film-stills.mjs` and `capture-frames.mjs` are shims into the skill's `kit/`; `kit/check-card.mjs` is the static `<img>` sandbox gate
+- `capture-frames.mjs <file.svg> --at=…` — timed `<img>` captures on both canvases + the reduced-motion check; `qa-loop.mjs <file.svg>` — the whole loop measured (seam FAIL; blank first frame / cut / dead stretch WARN) + a contact sheet
+- `doctor.mjs [--fix]` — can the kit run here; `history.mjs recent|add|verdict` — what was made and what the user thought
+- `film-stills`, `capture-frames`, `qa-loop`, `doctor` are shims into the skill's `kit/`; `kit/check-card.mjs` is the static `<img>` sandbox gate. Kit exit codes: 0 ok, 1 failure, 2 usage, 3 environment
 
 ## 4. Workflow (the natural-language loop)
 
@@ -186,7 +187,7 @@ Multi-asset jobs: `docs/sprint-4-workflows.md`.
 - Architecture / design question → `docs/ARCHITECTURE.md`
 - Why a design choice was made → `docs/research-findings.md`
 - How to use a specific primitive → `docs/lib-api.md`
-- How to compose a cover / banner / logo / loader at quality → `.claude/skills/chanmeng-svg-animate/references/preset-cookbook.md` (palettes + `composeScene` + which preset to fork)
+- How to compose a cover / banner / logo / loader at quality → `.claude/skills/chanmeng-svg-animate/references/preset-cookbook.md` (palettes + `composeScene` + which preset to fork); what good looks like → `taste.md` and `case-cards.md` beside it
 - What an existing preset does → read its `lib/presets/*.js` (~30 lines each)
 - How to design a new skill → `docs/sprint-2-skills.md`
 - How to design a new subagent → `docs/sprint-3-subagents.md`

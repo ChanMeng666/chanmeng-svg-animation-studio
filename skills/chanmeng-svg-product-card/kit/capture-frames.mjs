@@ -12,6 +12,7 @@
 // so that route would report a moving picture as compliant.)
 //
 // Needs playwright-core and a browser:  npm i -D playwright-core
+// Exit codes: 0 pass, 1 a check failed, 2 usage, 3 environment (no playwright-core or no browser; run doctor.mjs).
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -23,14 +24,14 @@ const arg = (name, fallback) => {
 };
 if (!file || !fs.existsSync(file)) {
   console.error("Usage: node capture-frames.mjs <file.svg> --at=1,3,5 [--out=dir] [--width=px]");
-  process.exit(1);
+  process.exit(2);
 }
 let chromium;
 try {
   ({ chromium } = await import("playwright-core"));
 } catch {
-  console.error("capture-frames needs playwright-core:  npm i -D playwright-core");
-  process.exit(1);
+  console.error("capture-frames needs playwright-core:  npm i -D playwright-core   (node doctor.mjs checks everything)");
+  process.exit(3);
 }
 
 const svg = fs.readFileSync(file, "utf8");
@@ -53,7 +54,7 @@ async function launch() {
     }
   }
   console.error("capture-frames found no browser. Install Chrome or Edge, or run:  npx playwright-core install chromium");
-  process.exit(1);
+  process.exit(3);
 }
 
 const browser = await launch();
@@ -83,13 +84,18 @@ for (const [canvas, colour] of [["light", "#ffffff"], ["dark", "#0d1117"]]) {
   // machine: waiting and then capturing drifted by more than half a second.
   const page = await browser.newPage({ viewport: { width, height } });
   await page.setContent(`<!doctype html><style>body{margin:0;background:${colour}}body>svg{display:block;width:${width}px;height:auto}</style>${inline}`);
-  for (const t of times) {
-    await page.evaluate((ms) => {
+  const seek = (ms) =>
+    page.evaluate((ms) => {
       for (const a of document.getAnimations()) {
         a.pause();
         a.currentTime = ms;
       }
-    }, t * 1000);
+    }, ms);
+  // The first seek after load can paint the running state; one throwaway shot settles it.
+  await seek(0);
+  await page.screenshot();
+  for (const t of times) {
+    await seek(t * 1000);
     await page.screenshot({ path: path.join(outDir, `${name}-${canvas}-${t}s.png`) });
   }
   await page.close();

@@ -50,9 +50,35 @@ inline anywhere, stop — `composer.composeSVG` exists for exactly that need.
    talking, glowing, drifting, flickering.
 4. Identify the style cues: pixel-art, gradient-smooth, flat, neon, comic.
 
-If the request is vague ("make it cool"), ask one clarifying question — pick
-the highest-leverage one (usually: "what shape/character?" or "what motion?").
-Don't grill the user.
+Then ask **once**, in one message, with every default filled in so the user can
+just say "go". Skip what the request already answered.
+
+- **Where it will live** (default: a GitHub README, so it must work inside `<img>`).
+  This decides the `<img>` checks and whether text must be outlined.
+- **Size** (default: the closest preset's viewBox, named, e.g. "1280 × 640").
+- **Palette** (default: `caldera`, or the subject's own brand colours when it has one).
+- If the request is vague ("make it cool"), the one highest-leverage question
+  ("what shape/character?" or "what motion?") goes in the same message.
+
+No answer, or "just do it": use the defaults. Don't grill the user.
+
+## Step 1b — Know the bar and what came before
+
+Read `references/taste.md` (the bar: what got kept, redone or caught) and the cards
+for this type in `references/case-cards.md`. Then:
+
+```bash
+node scripts/history.mjs recent
+```
+
+Before composing, write two sentences into your reply:
+
+- **Signature move:** the one move this piece is remembered by.
+- **Swap test:** why it would not work unchanged for another subject of the same kind.
+  If you cannot say, the idea is too generic; find another before building.
+
+If the last few pieces share that move, arc or main motion, change it, or say why
+this subject needs it again.
 
 ## Step 2 — Read the catalog before composing
 
@@ -72,7 +98,7 @@ candidate's `compose()` (~30 lines each) to learn the patterns. Decide one of:
 For inspiration mapping ("user wants X → reach for Y"), open
 `references/preset-cookbook.md`.
 
-For the full lib API (signatures + defaults), open `references/lib-api.md`.
+For the full lib API (signatures + defaults), open `docs/lib-api.md`.
 
 **For any branded / multi-layer asset (cover, banner, logo, loader), use the
 modern composition path** (it's how the quality bar is reproduced):
@@ -88,7 +114,7 @@ modern composition path** (it's how the quality bar is reproduced):
   FROZEN reference — fork `brand-cover` instead.
 
 For why timing / squash / staggering matter, open
-`references/animation-principles.md`. The 5-point quality checklist there is
+`docs/animation-principles.md`. The 5-point quality checklist there is
 the same one `/chanmeng-svg-verify` will grade against — design with it in mind.
 
 ## Step 3 — Write the preset
@@ -140,6 +166,19 @@ node scripts/capture-frames.mjs output/<slug>.svg --at=2,5.5,10
 It captures each second through `<img>` on a light and a dark canvas and fails
 if the reduced-motion picture is still moving. Read the pictures it writes.
 
+Then measure the whole loop with numbers, and look at it on one sheet:
+
+```bash
+node scripts/qa-loop.mjs output/<slug>.svg
+```
+
+It seeks the SVG's own clock across one loop and checks the seam (FAIL when the
+last frame snaps back to the first), a nearly blank first frame, hard cuts and dead
+stretches (WARN: often on purpose; keep one only if you can say why). It writes
+`output/frames/<slug>-sheet.png`, the loop in tiles whose last tile is the start
+again. Read the sheet: it is one image instead of many. Exit 1 means a FAIL to fix
+before verifying; exit 3 means the browser is missing (`node scripts/doctor.mjs`).
+
 ## Step 5 — Snapshot
 
 ```bash
@@ -169,12 +208,31 @@ stagger), re-render, re-verify. Cap at 3 rounds before pausing to ask the
 user. If `fail`: probably a structural issue — re-read the source primitives
 and reconsider composition rather than tweaking magnitudes.
 
-If `pass`: report to the user with:
+If `pass`: record the piece, then report.
+
+```bash
+node scripts/history.mjs add --slug=<slug> --type=<mascot|logo|badge|loader|cover|banner|card|background|icon|other>   --signature="<the signature move, one sentence>" --arc=<build|loop|reveal|...>   --primitives=<createX,createY> --palette=<name> --loop=<seconds> --qa="<qa-loop summary>"
+```
+
+Report to the user with:
 
 - Path: `output/<slug>.svg`
-- Primitives used: `motion.foo`, `shapes.bar`, ...
-- The verdict's one-line summary
+- The signature move, and primitives used: `motion.foo`, `shapes.bar`, ...
+- The verdict's one-line summary, and any `qa-loop` WARN you kept, with why
+- What can only be judged by watching it play
 - (Optional) Whether to run `/chanmeng-svg-export <slug>` to optimize and ship.
+
+**When the user reacts** (likes it, asks for changes, rejects it), record it in their
+words:
+
+```bash
+node scripts/history.mjs verdict <slug> <keep|tweak|reject> "<why>"
+```
+
+A `reject`, or any reason that generalises, also becomes a line in
+`references/taste.md` section 8. A `keep` that taught something hard becomes a card
+in `references/case-cards.md`. This is how the studio's taste compounds, the way its
+primitives do.
 
 ## Anti-patterns
 
